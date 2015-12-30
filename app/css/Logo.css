@@ -1,0 +1,36 @@
+@import 'base';
+
+.container {
+  width: 100%;
+  padding-bottom: 100%;
+  position: relative;
+}
+
+.ring {
+  position: absolute;
+  width: 59%;
+  height: 59%;
+  border-radius: 50%;
+  border: 0.2em solid $primary;
+  box-sizing: border-box;
+}
+
+.ring:nth-child(1) {
+  top: 0;
+  left: 0;
+}
+
+.ring:nth-child(2) {
+  top: 0;
+  right: 0;
+}
+
+.ring:nth-child(3) {
+  bottom: 0;
+  left: 0;
+}
+
+.ring:nth-child(4) {
+  bottom: 0;
+  right: 0;
+}

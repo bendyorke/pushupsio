@@ -1,0 +1,88 @@
+@import 'base';
+
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  width: 100%;
+  min-width: 300px;
+  max-width: 444px;
+  margin: 0 24px 24px;
+
+  @media screen and (min-width: 500px) {
+    margin: 24px;
+  }
+}
+
+.title {
+  color: #777;
+  font-size: 20px;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 24px;
+  background: $primary;
+  color: $background;
+  position: relative;
+  border-radius: 2px 2px 0 0;
+
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    margin-left: -12px;
+    width: 24px;
+    height: 24px;
+    background: $primary;
+    border-radius: 50%;
+  }
+}
+
+.card {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  background: $background;
+  padding: 36px;
+  border-radius: 0 0 2px 2px;
+  border: 1px solid $primary;
+  box-sizing: border-box;
+
+  @media screen and (min-width: 500px) {
+    padding: 36px 60px;
+  }
+}
+
+.email {
+  composes: _input;
+  width: 100%;
+}
+
+.password {
+  composes: _input;
+  width: 100%;
+}
+
+.actions {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sign-up {
+  composes: _button;
+  flex: 1;
+  padding: 12px;
+  margin-left: 6px;
+}
+
+.sign-in {
+  composes: _line_button;
+  flex: 1;
+  padding: 12px;
+  margin-right: 6px;
+}

@@ -1,0 +1,79 @@
+@import 'base';
+
+.card {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  background: $background;
+  min-width: 300px;
+  max-width: 500px;
+  margin: 0 auto;
+  border-radius: 0 0 2px 2px;
+  border: 1px solid $primary;
+  box-sizing: border-box;
+
+  @media screen and (min-width: 500px) {
+  }
+}
+
+.title {
+  color: #777;
+  font-size: 20px;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 24px;
+  background: $primary;
+  color: $background;
+  position: relative;
+  border-radius: 2px 2px 0 0;
+  box-sizing: border-box;
+  margin-bottom: 24px;
+  width: 100%;
+
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    margin-left: -12px;
+    width: 24px;
+    height: 24px;
+    background: $primary;
+    border-radius: 50%;
+  }
+}
+
+.count {
+  font-size: 72px;
+  color: $gray-dark;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+  box-sizing: border-box;
+
+  * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+}
+
+.decrement {
+  composes: _line_button;
+  width: 132px;
+  padding: 16px 24px;
+  box-sizing: border-box;
+  margin-right: 6px;
+  font-size: 20px;
+}
+
+.increment {
+  composes: _button;
+  width: 132px;
+  padding: 16px 24px;
+  border: 1px solid $primary;
+  box-sizing: border-box;
+  margin-left: 6px;
+  font-size: 20px;
+}

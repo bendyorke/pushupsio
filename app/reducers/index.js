@@ -1,0 +1,10 @@
+import { combineReducers } from 'redux'
+import { routeReducer } from 'redux-simple-router'
+import count from './count'
+import user from './user'
+
+export default combineReducers({
+  routing: routeReducer,
+  count,
+  user,
+})

@@ -1,0 +1,47 @@
+@import 'vars';
+
+._hoverable {
+  &:hover { cursor: pointer; }
+}
+
+._space {
+  flex: 1;
+}
+
+._button {
+  composes: _hoverable;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 2px;
+  background-color: $primary;
+  color: $background;
+  text-decoration: none;
+  transition: all 0.2s ease;
+
+  &:active                   { background-image: linear-gradient(#0002, #0002); }
+  &:not(._unhoverable):hover { background-image: linear-gradient(#FFF2, #FFF2); }
+}
+
+._line_button {
+  composes: _button;
+  background: none;
+  border: 1px solid $primary;
+  color: $primary;
+
+  &:not(._unhoverable):hover { color: $background; }
+  &:not(._unhoverable):hover { background-color: $primary; }
+}
+
+._input {
+  display: block;
+  padding: 12px 24px;
+  color: $gray-dark;
+  border: 1px solid $gray-dark;
+  box-shadow: 0 4px 0 -2px $gray-dark;
+  border-radius: 2px;
+  font-size: 16px;
+  margin: 0 auto 12px;
+  box-sizing: border-box;
+}
