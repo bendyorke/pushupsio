@@ -1,0 +1,25 @@
+@import 'base';
+
+.input {
+  composes: _input;
+  width: 80%;
+  margin-bottom: 0;
+}
+
+.button-container {
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.fallinout {
+  composes: fallinout from 'css/Account.css'
+}
+
+.button {
+  composes: _button;
+  box-sizing: border-box;
+  padding: 12px;
+  margin-top: 12px;
+  width: 100%;
+}

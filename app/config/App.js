@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react'
-import { initialize, setDay } from 'actions'
-import moment from 'moment'
+import { initialize } from 'actions'
 
 import CSS from 'react-css-modules'
 import styles from 'css/App'
@@ -14,7 +13,6 @@ class App extends Component {
 
   componentWillMount() {
     this.props.store.dispatch(initialize())
-    this.props.store.dispatch(setDay(moment()))
   }
 
   render() {

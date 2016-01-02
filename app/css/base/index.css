@@ -1,2 +1,2 @@
-@import 'defaults';
-@import 'vars';
+@import './defaults';
+@import './mixins';

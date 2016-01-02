@@ -1,0 +1,40 @@
+@import './defaults';
+
+@define-mixin break $breakpoint {
+  @media screen and (min-width: $(breakpoint)px) { @mixin-content; }
+}
+
+@define-mixin decolorize $property: background, $value: inherit {
+  @each $color in (ninja, ronswanson, dinosaur, scuba, royalty, bacon, lava, hunter, pirate, blacksmith) {
+    :global .colorize.$(color) :local & {
+      $(property): $(value);
+    }
+  }
+}
+
+@define-mixin colorize $property: background, $operator: +, $amount: 0 {
+  @each $color in (ninja, ronswanson, dinosaur, scuba, royalty, bacon, lava, hunter, pirate, blacksmith) {
+    :global .colorize.$(color) :local & {
+      $(property): color(var(--primary) l($(operator) $(amount)%));
+      $(property): color(var(--$(color)) l($(operator) $(amount)%));
+    }
+  }
+}
+
+@define-mixin react-transition $stage {
+  @if $stage == will-mount {
+    &[class$=-appear] { @mixin-content; }
+  } @else if $stage == did-mount {
+    &[class$=-appear-active] { @mixin-content; }
+  } @else if $stage == will-enter {
+    &[class$=-enter] { @mixin-content; }
+  } @else if $stage == did-enter {
+    &[class$=-enter-active] { @mixin-content; }
+  } @else if $stage == will-leave {
+    &[class$=-leave] { @mixin-content; }
+  } @else if $stage == did-leave {
+    &[class$=-leave-active] { @mixin-content; }
+  } @else {
+    &[class$=-$(stage)] { @mixin-content; }
+  }
+}

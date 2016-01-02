@@ -12,7 +12,7 @@ const recordQuery = day => {
 
 const saveRecord = ({id, day, count}) => {
   const record = new Record()
-  if (id) record.id = id
+  if (!!id) record.id = id
   record.set('count', count || 0)
   record.set('date', day.startOf('day').toDate())
   record.set('user', Parse.User.current())
@@ -37,12 +37,12 @@ export function setCount(count, day, id) {
 
 export function setDay(day) {
   return (dispatch, getState) => {
-    let record = getState().count.history[day.format('MMDDYY')]
-    if (!record || !record.id) recordQuery(day).first()
-      .then(res => (res && res.id) || dispatch(setCount(0, day)))
+    const record = getState().count.history[day.format('MMDDYY')]
+    if (!record || !record.id) dispatch(setCount(0, day))
 
     return dispatch({
       type: types.SET_DAY,
+      payload: day,
     })
   }
 }

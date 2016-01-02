@@ -1,11 +1,5 @@
 var path = require('path')
 var webpack = require('webpack')
-var precss = require('precss')
-var autoprefixer = require('autoprefixer')
-var nested = require('postcss-nested')
-var cssvars = require('postcss-simple-vars')
-var cssimport = require('postcss-import')
-var hexa = require('postcss-color-hex-alpha')
 
 var globals = {
   __DEV__: true,
@@ -55,12 +49,18 @@ module.exports = {
   },
   postcss: function(webpack) {
     return [
-      cssimport({ addDependencyTo: webpack }),
-      nested,
-      cssvars,
-      hexa,
-      autoprefixer,
-      precss,
+      require('postcss-import')({ addDependancyTo: webpack }),
+      require('postcss-each'),
+      require('postcss-mixins'),
+      require('postcss-conditionals'),
+      require('postcss-nested'),
+      require('postcss-simple-vars'),
+      require('postcss-custom-properties')({ variables: require('./app/config/colors').all }),
+      require('postcss-color-hex-alpha'),
+      require('postcss-color-function'),
+      require('postcss-property-lookup'),
+      require('postcss-custom-selectors'),
+      require('autoprefixer'),
     ]
   },
 }

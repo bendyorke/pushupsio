@@ -8,13 +8,13 @@
 .title {
   font-size: 32px;
   font-weight: 700;
-  color: $gray-dark;
+  color: color(var(--text) l(- 20%));
 }
 
 .subtitle {
   font-size: 20px;
   margin: 20px auto 32px;
-  color: $gray;
+  color: var(--text);
 }
 
 .sign-up {

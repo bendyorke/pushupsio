@@ -2,7 +2,7 @@
 
 :global {
   body, #root {
-    background: $background;
+    background: var(--background);
     font-family: sans-serif;
     min-height: 100vh;
     min-width: 300px;
@@ -16,5 +16,5 @@
 }
 
 .app {
-  color: $primary;
+  color: var(--primary);
 }

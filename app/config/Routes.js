@@ -6,6 +6,7 @@ import { Router, Route, IndexRoute } from 'react-router'
 import Layout from 'cmp/Layout'
 import Splash from 'cmp/Splash'
 import SignOut from 'cmp/SignOut'
+import Profile from 'cmp/Profile'
 import Register from 'cmp/Register'
 import Dashboard from 'cmp/Dashboard'
 
@@ -25,6 +26,7 @@ const Routes = ({ store, history }) => (
         <Route path="signout" component={SignOut} />
         <Route path="register" component={Register} onEnter={justify} />
         <Route path="dashboard" component={Dashboard} onEnter={auth} />
+        <Route path="profile" component={Profile} onEnter={auth} />
       </Route>
     </Router>
   </Provider>

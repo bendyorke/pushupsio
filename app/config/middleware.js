@@ -38,20 +38,25 @@ const promiseMiddleware = store => next => action => {
   return next(chainableAction)
 }
 
-const parseMiddleware = store => next => action => {
-  const { payload } = action
+const parseMiddleware = store => {
+  const isParseObject = _parseObj => {
+    return (
+      _parseObj &&
+      _parseObj.className &&
+      _parseObj.id &&
+      _parseObj.attributes
+    )
+  }
+  return next => action => {
+    const { payload } = action
 
-  if (
-    !payload ||
-    !payload.className ||
-    !payload.id ||
-    !payload.attributes
-  ) return next(action)
+    if (!isParseObject(payload)) return next(action)
 
-  return next({
-    ...action,
-    payload: { ...payload, ...payload.attributes },
-  })
+    return next({
+      ...action,
+      payload: { ...payload, ...payload.attributes },
+    })
+  }
 }
 
 const throttleMiddleware = store => next => {

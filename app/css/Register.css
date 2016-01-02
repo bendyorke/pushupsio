@@ -10,7 +10,6 @@
   width: 100%;
   min-width: 300px;
   max-width: 444px;
-  margin: 0 24px 24px;
 
   @media screen and (min-width: 500px) {
     margin: 24px;
@@ -23,8 +22,8 @@
   text-transform: uppercase;
   text-align: center;
   padding: 24px;
-  background: $primary;
-  color: $background;
+  background: var(--primary);
+  color: var(--background);
   position: relative;
   border-radius: 2px 2px 0 0;
 
@@ -36,7 +35,7 @@
     margin-left: -12px;
     width: 24px;
     height: 24px;
-    background: $primary;
+    background: var(--primary);
     border-radius: 50%;
   }
 }
@@ -46,10 +45,10 @@
   flex-flow: column;
   align-items: center;
   justify-content: center;
-  background: $background;
+  background: var(--background);
   padding: 36px;
   border-radius: 0 0 2px 2px;
-  border: 1px solid $primary;
+  border: 1px solid var(--primary);
   box-sizing: border-box;
 
   @media screen and (min-width: 500px) {

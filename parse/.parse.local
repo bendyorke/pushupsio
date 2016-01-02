@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "_default": {
+      "link": "pushupsio"
+    },
+    "pushupsio": {
+      "applicationId": "JPiiqF69y6gBwRLvcJAhympE23USkPNTxPIr84GI"
+    }
+  }
+}

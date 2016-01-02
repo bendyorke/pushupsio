@@ -11,8 +11,12 @@
   width: 59%;
   height: 59%;
   border-radius: 50%;
-  border: 0.2em solid $primary;
+  border-width: 0.2em;
+  border-style: solid;
+  border-color: var(--primary);
   box-sizing: border-box;
+
+  @mixin colorize border-color;
 }
 
 .ring:nth-child(1) {

@@ -1,26 +1,33 @@
 import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
 
 import Nav from 'cmp/Nav'
 
-import CSS from 'react-css-modules'
+import CSS from 'css/apply'
 import styles from 'css/Layout'
 
 class Layout extends Component {
   static propTypes = {
+    color: PropTypes.string,
     children: PropTypes.node,
   }
 
   render() {
-    const { children } = this.props
+    const { children, color } = this.props
+    console.log(styles)
     return (
       <div styleName="container">
-        <div styleName="content">
-          <Nav />
-          {children}
+        <div className={`colorize ${color}`} style={{background: 'none'}}>
+          <div styleName="content">
+            <Nav />
+            {children}
+          </div>
         </div>
       </div>
     )
   }
 }
 
-export default CSS(Layout, styles)
+export default connect(state => ({
+  color: state.user.color,
+}), {})(CSS(Layout, styles))

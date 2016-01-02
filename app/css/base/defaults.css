@@ -1,4 +1,5 @@
-@import 'vars';
+@import './mixins';
+@custom-selector :--hoverable :not(:global(._unhoverable));
 
 ._hoverable {
   &:hover { cursor: pointer; }
@@ -15,33 +16,95 @@
   justify-content: center;
   padding: 6px 12px;
   border-radius: 2px;
-  background-color: $primary;
-  color: $background;
+  background-color: var(--primary);
+  color: var(--background);
   text-decoration: none;
   transition: all 0.2s ease;
 
-  &:active                   { background-image: linear-gradient(#0002, #0002); }
-  &:not(._unhoverable):hover { background-image: linear-gradient(#FFF2, #FFF2); }
+  &:--hoverable:active { background-image: linear-gradient(#0002, #0002); }
+  &:--hoverable:hover  { background-image: linear-gradient(#FFF2, #FFF2); }
+
+  @mixin colorize background-color;
 }
 
 ._line_button {
   composes: _button;
+  @mixin decolorize background-color;
   background: none;
-  border: 1px solid $primary;
-  color: $primary;
+  border: 1px solid var(--primary);
+  color: var(--primary);
 
-  &:not(._unhoverable):hover { color: $background; }
-  &:not(._unhoverable):hover { background-color: $primary; }
+  &:--hoverable:hover { color: var(--background); }
+
+  @mixin colorize border-color;
+  &:--hoverable:hover { @mixin colorize background-color, -, 50; }
 }
 
 ._input {
   display: block;
   padding: 12px 24px;
-  color: $gray-dark;
-  border: 1px solid $gray-dark;
-  box-shadow: 0 4px 0 -2px $gray-dark;
+  color: color(var(--text) l(- 20%));
+  border: 1px solid color(var(--text) l(- 20%));
+  box-shadow: 0 4px 0 -2px color(var(--text) l(- 20%));
   border-radius: 2px;
   font-size: 16px;
   margin: 0 auto 12px;
   box-sizing: border-box;
+}
+
+._card {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--background);
+  min-width: 300px;
+  max-width: 500px;
+  margin: 0 auto 24px;
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid var(--primary);
+  box-sizing: border-box;
+  padding: 24px;
+  color: color(var(--text) l(- 20%));
+}
+
+._card_title {
+  color: #777;
+  font-size: 20px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: -24px;
+  padding: 24px;
+  margin-bottom: 24px;
+  background: var(--primary);
+  color: var(--background);
+  position: relative;
+  width: 100%;
+
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    margin-left: -12px;
+    width: 24px;
+    height: 24px;
+    background: var(--primary);
+    border-radius: 50%;
+  }
+}
+
+._card_footer {
+  color: #777;
+  font-size: 20px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: -24px;
+  padding: 24px;
+  margin-top: 24px;
+  background: var(--primary);
+  color: var(--background);
+  position: relative;
+  width: 100%;
 }

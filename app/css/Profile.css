@@ -1,0 +1,10 @@
+@import 'base';
+
+.signout {
+  composes: _button;
+  min-width: 300px;
+  max-width: 500px;
+  box-sizing: border-box;
+  padding: 12px;
+  margin: 0 auto 24px;
+}

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { setCount, getCount } from 'actions'
+import { setDay, calculate, setCount, getCount } from 'actions'
 
 import CSS from 'css/apply'
 import styles from 'css/Counter'
@@ -8,6 +8,8 @@ import styles from 'css/Counter'
 class Counter extends Component {
   state = {
     timeout: null,
+    hoverable: true,
+    click: true,
   }
 
   static propTypes = {
@@ -18,10 +20,14 @@ class Counter extends Component {
     history: PropTypes.object,
     setCount: PropTypes.func,
     getCount: PropTypes.func,
+    calculate: PropTypes.func,
   }
 
   componentWillMount() {
-    this.props.getCount()
+    const { getCount, setDay, calculate, day } = this.props;
+    getCount()
+      .then(() => setDay(day))
+      .then(() => calculate())
   }
 
   handleTap = count => event => {
@@ -30,6 +36,7 @@ class Counter extends Component {
     this.setState({
       timeout: setTimeout(() => this.setState({click: true}), 400),
       click: false,
+      hoverable: false,
     })
 
     event.target.className +=
@@ -41,8 +48,8 @@ class Counter extends Component {
   }
 
   handleChange = count => event => {
-    const { setCount, day, record } = this.props
-    setCount(Math.max(count, 0) || 0, day, record)
+    const { setCount, calculate, day, record } = this.props
+    setCount(Math.max(count, 0) || 0, day, record) && calculate()
   }
 
   render() {
@@ -53,12 +60,14 @@ class Counter extends Component {
         <div styleName="count">{count}</div>
         <div styleName="actions" ref="actions">
           <div
+            className={!this.state.hoverable && '_unhoverable'}
             styleName="decrement"
             onTouchEnd={this.handleTap(count - 1)}
             onClick={this.handleClick(count - 1)}>
             –
           </div>
           <div
+            className={!this.state.hoverable && '_unhoverable'}
             styleName="increment"
             onTouchEnd={this.handleTap(count + 1)}
             onClick={this.handleClick(count + 1)}>
@@ -77,6 +86,8 @@ export default connect(state => ({
   total: state.count.total,
   history: state.count.history,
 }), {
+  setDay,
+  calculate,
   setCount,
   getCount,
 })(CSS(Counter, styles))

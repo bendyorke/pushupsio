@@ -21,40 +21,38 @@ class Nav extends Component {
     returning: false,
   }
 
-  render() {
+  button() {
     const {
       user: { id },
       routing: { path },
     } = this.props
 
-    const { returning } = this.state
+    switch(path) {
+    case '/register':
+      return ['/', 'Home']
+    case '/dashboard':
+      return ['/profile', 'Profile']
+    default:
+      return id ? ['/dashboard', 'Dashboard'] : ['/register', 'Sign In']
+    }
+  }
 
-    const registerPage = path === '/register'
-
+  render() {
+    const [path, text] = this.button()
     return (
       <div styleName="container">
         <Link styleName="link" to="/">
-          <Logo styleName="logo" weight="400"/>
+          <Logo styleName="logo" weight="400" color={this.props.user.color}/>
           <div styleName="text">pushups.io</div>
         </Link>
         <div styleName="_space" />
-
-        {!registerPage && id &&
-          <Link styleName="button" to="/dashboard">Dashboard</Link>
-        }
-
-        {!registerPage && !id &&
-          <Link styleName="button" to="/register">Sign In</Link>
-        }
-
-        {registerPage &&
-          <Link styleName="button" to="/">Home</Link>
-        }
+        <Link styleName="button" to={path}>{text}</Link>
       </div>
     )
   }
 }
 
-export default connect(
-  state => ({ user: state.user, routing: state.routing })
-)(CSS(Nav, styles))
+export default connect(state => ({
+  user: state.user,
+  routing: state.routing,
+}), {})(CSS(Nav, styles))
