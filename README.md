@@ -2,7 +2,7 @@
 
 The world's most revolutionary pushup tracking software.
 
-## build with
+## built with
 - React
 - Redux
 - Parse
