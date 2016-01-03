@@ -3,18 +3,16 @@ var webpack = require('webpack')
 
 var globals = {
   __DEV__: true,
+  __PROD__: false,
 }
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
-  entry: [
-    './app/config/polyfills',
-    'webpack-hot-middleware/client',
-    './app/index',
-  ],
+  // The entry is modified in server.dev.js to allow for hot reloading
+  entry: ['./app'],
   output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
+    path: path.join(__dirname, 'public', 'static'),
+    filename: 'dev-pushups.js',
     publicPath: '/static/'
   },
   plugins: [

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
+import { DISPLAY_FORMAT } from 'utils/history'
 
 import CSS from 'css/apply'
 import styles from 'css/History'
@@ -10,10 +11,15 @@ class History extends Component {
     history: PropTypes.object,
   }
 
+  static defaultProps = {
+    history: {},
+  }
+
   history() {
     return Object
-      .values(this.props.history)
-      .sort()
+      .keys(this.props.history)
+      .map(key => ({...this.props.history[key], key}))
+      .sort((a, b) => a.date.diff(b.date))
       .reverse()
   }
 
@@ -22,15 +28,15 @@ class History extends Component {
     return (
       <div styleName="card">
         <div styleName="title">History</div>
-        {this.history().map(({id, count, moment: day}) => (
-          <div styleName="day" key={id}>
+        {this.history().map(({id, count, date, key}) => (
+          <div styleName="day" key={key}>
             <span styleName="count">{count}</span>
             <span styleName="dates">
-              <div styleName="formatted">{day.format('MMM DD, YYYY')}</div>
+              <div styleName="formatted">{date.format(DISPLAY_FORMAT)}</div>
               <div styleName="relative">
-                {day.isSame(today, 'day') ? 'Today' :
+                {date.isSame(today, 'day') ? 'Today' :
                   moment
-                    .duration(today.diff(day))
+                    .duration(today.diff(date))
                     .humanize() + ' ago'
                 }
               </div>

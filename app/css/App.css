@@ -16,5 +16,5 @@
 }
 
 .app {
-  color: var(--primary);
+  @mixin colorize color;
 }

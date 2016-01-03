@@ -10,3 +10,10 @@ export const updateUser = attrs => {
     payload: user.save(),
   }
 }
+
+export const updateColor = color => {
+  return {
+    type: types.UPDATE_COLOR,
+    payload: color,
+  }
+}

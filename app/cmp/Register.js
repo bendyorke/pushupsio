@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { signIn, signUp } from 'actions'
 import { pushPath } from 'redux-simple-router'
 
+import Error from 'cmp/Error'
+
 import CSS from 'css/apply'
 import styles from 'css/Register'
 
@@ -50,27 +52,26 @@ class Register extends Component {
 
   render() {
     return (
-      <div styleName="container">
+      <div styleName="card">
+        <div styleName="title">Register</div>
         <div styleName="content">
-          <div styleName="title">Register</div>
-          <form styleName="card">
-            <input
-              styleName="email"
-              ref="email"
-              placeholder="email"
-              onChange={this.update} />
-            <input
-              styleName="password"
-              ref="password"
-              type="password"
-              placeholder="••••••••"
-              onChange={this.update} />
+          {this.state.error && <Error error={this.state.error} />}
+          <input
+            styleName="email"
+            ref="email"
+            placeholder="email"
+            onChange={this.update} />
+          <input
+            styleName="password"
+            ref="password"
+            type="password"
+            placeholder="••••••••"
+            onChange={this.update} />
 
-            <div styleName="actions">
-              <div styleName="sign-in" onClick={this.signIn}>Sign In</div>
-              <div styleName="sign-up" onClick={this.signUp}>Sign Up</div>
-            </div>
-          </form>
+          <div styleName="actions">
+            <div styleName="sign-in" onClick={this.signIn}>Sign In</div>
+            <div styleName="sign-up" onClick={this.signUp}>Sign Up</div>
+          </div>
         </div>
       </div>
     )

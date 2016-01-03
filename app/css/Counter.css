@@ -6,6 +6,23 @@
 
 .title {
   composes: _card_title;
+  @mixin flex-block row, space-between;
+}
+
+.icon {
+  composes: _hoverable;
+  width: 40px;
+}
+
+.left {
+  composes: icon;
+}
+
+.right {
+  composes: icon;
+}
+
+.date {
 }
 
 .count {
@@ -36,7 +53,6 @@
   composes: _button;
   width: 132px;
   padding: 16px 24px;
-  border: 1px solid var(--primary);
   box-sizing: border-box;
   margin-left: 6px;
   font-size: 20px;

@@ -1,13 +1,12 @@
 @import 'base';
 
 .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   max-width: 980px;
   margin: 0 auto;
   margin-bottom: 12px;
   height: 60px;
+
+  @mixin flex-block row, space-between;
 
   @mixin break 500 {
     padding: 12px;
@@ -26,24 +25,20 @@
   margin-right: 16px;
   font-size: 80%;
 
-  @mixin break 500 {
-    width: 70px;
-  }
+  @mixin break 500 { width: 70px; }
 }
 
 .text {
   letter-spacing: 2px;
   font-size: 20px;
-  color: var(--primary);
   padding-bottom: 6px;
+
+  @mixin colorize color;
 
   @mixin break 500 {
     letter-spacing: 4px;
     font-size: 30px;
   }
-}
-
-.sign-out {
 }
 
 .button {
@@ -53,7 +48,5 @@
   font-size: 16px;
   padding: 12px 12px;
 
-  @mixin break 500 {
-    padding: 12px 24px;
-  }
+  @mixin break 500 { padding: 12px 24px; }
 }

@@ -1,48 +1,32 @@
 import * as types from 'actions/types'
 import Parse from 'parse'
+import moment from 'moment'
 
-const Record = Parse.Object.extend('Record')
+export function setCount(count, date, id) {
+  const payload = Parse.Cloud.run('updateOrCreate', {model: 'Record',
+    $where:  { date: date.toDate(), _User: Parse.User.current().id },
+    $update: { count },
+  })
 
-const recordQuery = day => {
-  const query = new Parse.Query(Record)
-  if (day) query.equalTo('date', day.startOf('day').toDate())
-  query.equalTo('user', Parse.User.current())
-  return query
-}
-
-const saveRecord = ({id, day, count}) => {
-  const record = new Record()
-  if (!!id) record.id = id
-  record.set('count', count || 0)
-  record.set('date', day.startOf('day').toDate())
-  record.set('user', Parse.User.current())
-  return record.save()
-}
-
-export function getCount() {
-  return {
-    type: types.GET_COUNT,
-    payload: recordQuery().find(),
-  }
-}
-
-export function setCount(count, day, id) {
   return {
     type: types.SET_COUNT,
-    data: { count, day },
-    payload: () => saveRecord({count, day, id}),
+    data: { count, date },
+    payload: () => payload,
     throttle: 1000,
   }
 }
 
-export function setDay(day) {
+export function setDay(newDate) {
   return (dispatch, getState) => {
-    const record = getState().count.history[day.format('MMDDYY')]
-    if (!record || !record.id) dispatch(setCount(0, day))
+    const { history, date: currentDate } = getState().count
+    const date = newDate || currentDate
+    const record = history[date.format('MMDDYY')]
+
+    if (!record || !record.id) dispatch(setCount(0, date))
 
     return dispatch({
       type: types.SET_DAY,
-      payload: day,
+      payload: date,
     })
   }
 }

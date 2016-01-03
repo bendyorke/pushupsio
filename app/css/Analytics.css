@@ -1,12 +1,11 @@
 @import 'base';
 
 .card {
-  composes: card from 'css/Counter';
-  margin-top: 24px;
+  composes: _card;
 }
 
 .title {
-  composes: title from 'css/Counter';
+  composes: _card_title;
 }
 
 .warning {

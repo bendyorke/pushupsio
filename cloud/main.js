@@ -1,42 +1,5 @@
 'use strict';
 
-Parse.Cloud.beforeSave('Record', function (request, _ref) {
-  var _success = _ref.success;
-  var error = _ref.error;
-
-  var record = request.object;
-  if (record && record.id) return _success();
-
-  var query = new Parse.Query('Record');
-  query.equalTo('user', record.get('user'));
-  query.equalTo('date', record.get('date'));
-  query.first({
-    success: function success(_record) {
-      if (_record) {
-        /**
-         * You can't actually modify the ID of the request in a
-         * beforeSave handler.  You also can return anything besides
-         * an error unless you return an error.  So for now,
-         * the only solution is to  return response.error('success')...
-         *
-         *
-         *
-         * Seriously
-         */
-        dirtySuccess = function () {
-          return error('success');
-        };
-        _record.set('count', record.get('count'));
-        _record.save({ success: dirtySuccess, error: error });
-      } else {
-        return _success();
-      }
-    },
-    error: error
-  });
-});
-'use strict';
-
 Parse.Cloud.beforeSave('User', function (request, _ref) {
   var success = _ref.success;
   var error = _ref.error;
@@ -47,9 +10,137 @@ Parse.Cloud.beforeSave('User', function (request, _ref) {
 });
 'use strict';
 
-Parse.Cloud.define('data', function (request, _ref) {
+Parse.Cloud.define('initialize', function (request, _ref) {
   var success = _ref.success;
   var error = _ref.error;
+  var user = request.user;
 
-  success(request.user);
+  var Record = Parse.Object.extend('Record');
+  var recordQuery = new Parse.Query(Record);
+  recordQuery.equalTo('user', user);
+  recordQuery.include('user');
+  recordQuery.find().then(function (records) {
+    return success({
+      records: records,
+      user: records[0] ? records[0].attributes.user : user
+    });
+  }, error);
 });
+'use strict';
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var isRelation = function isRelation(key) {
+  return (/^_[A-Z]/.test(key)
+  );
+};
+
+/**
+ * @param {Parse.Model} Model
+ * @param Object        params
+ * @return {Parse.Object}
+ *
+ * findOrCreate(Record, { day: Date.Object, _User: id })
+ * => Parse.Object(id, attributes)
+ */
+var findOrCreate = function findOrCreate(Model, params) {
+  var query = new Parse.Query(Model);
+
+  console.log('params');
+  console.log(params);
+  /**
+   * If a relation is passed in, handle it accordingly.
+   * A relation is any key starting with _[A-Z]
+   */
+  var attributes = Object.keys(params).reduce(function (memo, key) {
+    if (isRelation(key)) {
+      var modelName = key.slice(1);
+      var fieldName = modelName.toLowerCase();
+      var Relation = Parse.Object.extend(modelName);
+      var relation = new Relation();
+      relation.id = params[key];
+
+      return _extends({}, memo, _defineProperty({}, fieldName, relation));
+    } else {
+      return _extends({}, memo, _defineProperty({}, key, params[key]));
+    }
+  }, {});
+
+  Object.keys(attributes).forEach(function (key) {
+    query.equalTo(key, attributes[key]);
+  });
+
+  var promise = new Parse.Promise();
+
+  query.first().then(function (data) {
+    if (data) return promise.resolve(data);
+
+    var instance = new Model();
+    instance.set(attributes);
+    instance.save().then(function (data) {
+      return promise.resolve(data);
+    }, function (error) {
+      return promise.reject(error);
+    });
+  }).fail(function (error) {
+    return promise.reject(error);
+  });
+
+  return promise;
+};
+
+/**
+ * Parse.Cloud.run('findOrCreate', { model: 'Record',
+ *   $where: { day: Date.Object, _User: id, count: 0 },
+ * })
+ */
+Parse.Cloud.define('findOrCreate', function (request, response) {
+  var _request$params = request.params;
+  var modelName = _request$params.model;
+  var $where = _request$params.$where;
+
+  var Model = Parse.Object.extend(modelName);
+
+  findOrCreate(Model, where).then(response.success, response.error);
+});
+
+/**
+ * Parse.Cloud.run('updateOrCreate', { model: 'Record',
+ *   $where: { day: Date.Object, _User: id },
+ *   $update: { count: 100000000000000000000000 },
+ * })
+ */
+Parse.Cloud.define('updateOrCreate', function (request, response) {
+  var _request$params2 = request.params;
+  var modelName = _request$params2.model;
+  var $where = _request$params2.$where;
+  var $update = _request$params2.$update;
+
+  var Model = Parse.Object.extend(modelName);
+
+  findOrCreate(Model, $where).then(function (instance) {
+    console.log('instance');
+    console.log(JSON.stringify(instance));
+    instance.set($update);
+    instance.save(response);
+  }).fail(response.error);
+});
+"use strict";
+
+var express = require('express');
+var app = express();
+var bundles = {
+  "JPiiqF69y6gBwRLvcJAhympE23USkPNTxPIr84GI": "pushups.js",
+  "iYHw28DmfKV2v7JYAAdrl8ViR7cSMWXDvHvK0i8E": "dev-pushups.js"
+};
+
+app.set('view engine', 'ejs');
+
+app.get('*', function (req, res) {
+  var bundle = bundles[Parse.applicationId];
+  res.render('cloud/index.ejs', { bundle: bundle });
+});
+
+app.listen();

@@ -1,16 +1,32 @@
 import * as types from 'actions/types'
 import Parse from 'parse'
 
-export default function(state = {}, action) {
+const userObject = (user = {}) => ({
+  ...user,
+  ...user.attributes,
+  stored: { ...user.attributes },
+})
+
+const init = userObject(Parse.User.current())
+
+export default function(state = init, action) {
   switch(action.type) {
   case types.INITIALIZE:
-    const user = Parse.User.current() || {}
-    return user.id ? { ...user, ...user.attributes } : state
-  case types.SIGNOUT_SUCCESS:
-  case types.SIGNUP_SUCCESS:
-  case types.SIGNIN_SUCCESS:
+    Parse.User.current().set(action.payload.user)
+    return userObject(action.payload.user)
+
   case types.UPDATE_USER_SUCCESS:
-    return { ...action.payload }
+    Parse.User.current().set(action.payload.user)
+    return userObject(action.payload)
+
+  case types.SIGN_OUT_SUCCESS:
+  case types.SIGN_UP_SUCCESS:
+  case types.SIGN_IN_SUCCESS:
+    return userObject(action.payload)
+
+  case types.UPDATE_COLOR:
+    return { ...state, color: action.payload }
+
   default:
     return state
   }

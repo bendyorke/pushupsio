@@ -1,3 +1,4 @@
+import 'config/parse'
 import React from 'react'
 import { render } from 'react-dom'
 import { createStore } from 'redux'
@@ -7,7 +8,6 @@ import reducers from 'reducers'
 import Routes from 'config/Routes'
 import App from 'config/App'
 import applyMiddleware from 'config/middleware'
-import 'config/parse'
 
 const store = applyMiddleware(createStore)(reducers)
 syncReduxAndRouter(history, store)

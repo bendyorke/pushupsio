@@ -10,12 +10,9 @@
   position: absolute;
   width: 59%;
   height: 59%;
-  border-radius: 50%;
-  border-width: 0.2em;
-  border-style: solid;
-  border-color: var(--primary);
   box-sizing: border-box;
 
+  @mixin round-border 0.2em, 50%;
   @mixin colorize border-color;
 }
 

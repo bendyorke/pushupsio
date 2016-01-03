@@ -4,19 +4,45 @@
   @media screen and (min-width: $(breakpoint)px) { @mixin-content; }
 }
 
+@define-mixin pseudo $position: before, $width: 100%, $height: 100% {
+  position: relative;
+
+  &::$(position) {
+    position: absolute;
+    width: $width;
+    height: $height;
+    content: '';
+    @mixin-content;
+  }
+}
+
+@define-mixin round-border $width: 1px, $radius: 2px, $style: solid {
+  border-width: $width;
+  border-radius: $radius;
+  border-style: $style;
+}
+
+@define-mixin flex-block $flow: row, $justify: center, $align: center {
+  display: flex;
+  flex-flow: $flow;
+  justify-content: $justify;
+  align-items: $align;
+}
+
 @define-mixin decolorize $property: background, $value: inherit {
-  @each $color in (ninja, ronswanson, dinosaur, scuba, royalty, bacon, lava, hunter, pirate, blacksmith) {
+  @each $color in (ninja, dinosaur, lumberjack, bluejeans, royalty, bacon, lava, hunter, pirate, blacksmith) {
+    $(property): $(value);
     :global .colorize.$(color) :local & {
       $(property): $(value);
     }
   }
 }
 
-@define-mixin colorize $property: background, $operator: +, $amount: 0 {
-  @each $color in (ninja, ronswanson, dinosaur, scuba, royalty, bacon, lava, hunter, pirate, blacksmith) {
+@define-mixin colorize $property: background, $function, $secondFunction {
+  @each $color in (ninja, dinosaur, lumberjack, bluejeans, royalty, bacon, lava, hunter, pirate, blacksmith) {
+    $(property): color(var(--primary) $(function) $(secondFunction));
     :global .colorize.$(color) :local & {
-      $(property): color(var(--primary) l($(operator) $(amount)%));
-      $(property): color(var(--$(color)) l($(operator) $(amount)%));
+      $(property): color(var(--$(color)) $(function) $(secondFunction));
     }
   }
 }

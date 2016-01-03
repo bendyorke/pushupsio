@@ -25,52 +25,50 @@
   }
 }
 
-.ninja {
-  border-color: #6A727B;
-  &.selected { background: #6A727B; }
+.button-container {
+  display: block;
+  width: 80%;
+  margin: 0 auto;
 }
 
-.potion {
-  border-color: #B4C26C;
-  &.selected { background: #B4C26C; }
+.fallinout {
+  $distance: -15px;
+  $duration: 0.3s;
+
+  @mixin react-transition will-enter {
+    opacity: 0;
+    transform: translate3d(0,$distance,0);
+  }
+
+  @mixin react-transition did-enter {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+    transition: all $duration ease;
+  }
+
+  @mixin react-transition will-leave {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+
+  @mixin react-transition did-leave {
+    opacity: 0;
+    transform: translate3d(0,$distance,0);
+    transition: all $duration ease calc(1.5s - $duration);
+  }
 }
 
-.dinosaur {
-  border-color: #53987B;
-  &.selected { background: #53987B; }
+.button {
+  composes: _button;
+  box-sizing: border-box;
+  padding: 12px;
+  margin-top: 12px;
+  width: 100%;
 }
 
-.scuba {
-  border-color: #588DC0;
-  &.selected { background: #588DC0; }
-}
-
-.royalty {
-  border-color: #6363B7;
-  &.selected { background: #6363B7; }
-}
-
-.swag {
-  border-color: #D2808D;
-  &.selected { background: #D2808D; }
-}
-
-.lava {
-  border-color: #D69F65;
-  &.selected { background: #D69F65; }
-}
-
-.hunter {
-  border-color: #C2544E;
-  &.selected { background: #C2544E; }
-}
-
-.pirate {
-  border-color: #76C5C6;
-  &.selected { background: #76C5C6; }
-}
-
-.blacksmith {
-  border-color: #607D8B;
-  &.selected { background: #607D8B; }
+@each $color in (ninja, dinosaur, lumberjack, bluejeans, royalty, bacon, lava, hunter, pirate, blacksmith) {
+  .$(color) {
+    border-color: var(--$(color));
+    &.selected { background: var(--$(color)); }
+  }
 }

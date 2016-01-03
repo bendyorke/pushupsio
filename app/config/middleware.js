@@ -14,6 +14,7 @@ const promiseMiddleware = store => next => action => {
   }
 
   const onError = error => {
+    if (error.message === 'success') return onSuccess()
     setTimeout(() => { throw error }, 0)
     store.dispatch({
       type: action.type + '_ERROR',
@@ -38,27 +39,6 @@ const promiseMiddleware = store => next => action => {
   return next(chainableAction)
 }
 
-const parseMiddleware = store => {
-  const isParseObject = _parseObj => {
-    return (
-      _parseObj &&
-      _parseObj.className &&
-      _parseObj.id &&
-      _parseObj.attributes
-    )
-  }
-  return next => action => {
-    const { payload } = action
-
-    if (!isParseObject(payload)) return next(action)
-
-    return next({
-      ...action,
-      payload: { ...payload, ...payload.attributes },
-    })
-  }
-}
-
 const throttleMiddleware = store => next => {
   const activeThrottles = {}
   return action => {
@@ -81,6 +61,5 @@ export default applyMiddleware(
   thunk,
   throttleMiddleware,
   promiseMiddleware,
-  parseMiddleware,
   createLogger({collapsed: true})
 )

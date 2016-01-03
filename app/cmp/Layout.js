@@ -14,7 +14,6 @@ class Layout extends Component {
 
   render() {
     const { children, color } = this.props
-    console.log(styles)
     return (
       <div styleName="container">
         <div className={`colorize ${color}`} style={{background: 'none'}}>

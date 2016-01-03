@@ -3,7 +3,7 @@ import Parse from 'parse'
 
 export const signIn = (email, password) => {
   return {
-    type: types.SIGNIN,
+    type: types.SIGN_IN,
     payload: Parse.User.logIn(email.toLowerCase().trim(), password),
   }
 }
@@ -15,14 +15,14 @@ export const signUp = (email, password) => {
   user.set('password', password)
 
   return {
-    type: types.SIGNIN,
+    type: types.SIGN_UP,
     payload: user.signUp(),
   }
 }
 
 export const signOut = () => {
   return {
-    type: types.SIGNOUT,
+    type: types.SIGN_OUT,
     payload: Parse.User.logOut(),
   }
 }

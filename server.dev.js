@@ -4,7 +4,11 @@ var webpack = require('webpack')
 var config = require('./webpack.dev')
 
 var app = express()
-var compiler = webpack(config)
+
+// Start webpack with local settings
+var compiler = webpack(Object.assign({}, config, {
+  entry: ['./app/config/polyfills', 'webpack-hot-middleware/client'].concat(config.entry),
+}))
 
 var host = process.env.HOST || '0.0.0.0'
 var port = process.env.PORT || 2000

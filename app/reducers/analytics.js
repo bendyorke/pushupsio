@@ -16,8 +16,8 @@ export default function(state = initial, action) {
     const today = moment()
 
     const total = Object.values(history)
-      .filter(record => record.moment.isSame(today, 'year'))
-      .reduce((memo, record) => memo + record.count, 0)
+      .filter(historyItem => historyItem.date.isSame(today, 'year'))
+      .reduce((memo, historyItem) => memo + historyItem.count, 0)
     const average = total / Math.max(dayOfYear, 1)
     const target = (goal - total) / Math.max(daysInYear - dayOfYear, 1)
 

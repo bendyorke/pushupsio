@@ -1,0 +1,13 @@
+@import 'base';
+
+.error {
+  background: color(var(--hunter) l(+ 10%));
+  border-color: @background;
+  color: var(--background);
+  text-align: center;
+  padding: 12px 24px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+  width: 100%;
+  @mixin round-border 1px;
+}

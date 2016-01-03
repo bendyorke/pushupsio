@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { setDay, calculate, setCount, getCount } from 'actions'
+import { setDay, calculate, setCount } from 'actions'
+import moment from 'moment'
+import Icons from 'cmp/Icons'
 
 import CSS from 'css/apply'
 import styles from 'css/Counter'
@@ -13,21 +15,18 @@ class Counter extends Component {
   }
 
   static propTypes = {
-    day: PropTypes.object,
+    date: PropTypes.object,
     count: PropTypes.number,
     total: PropTypes.number,
     record: PropTypes.string,
     history: PropTypes.object,
     setCount: PropTypes.func,
-    getCount: PropTypes.func,
     calculate: PropTypes.func,
   }
 
-  componentWillMount() {
-    const { getCount, setDay, calculate, day } = this.props;
-    getCount()
-      .then(() => setDay(day))
-      .then(() => calculate())
+  static defaultProps = {
+    date: moment(),
+    count: 0,
   }
 
   handleTap = count => event => {
@@ -39,24 +38,36 @@ class Counter extends Component {
       hoverable: false,
     })
 
-    event.target.className +=
     this.handleChange(count)(event)
   }
 
   handleClick = count => event => {
-    if (this.state.click) this.handleChange(count)(event)
+    if (this.state.click) this.handleCountChange(count)(event)
   }
 
-  handleChange = count => event => {
-    const { setCount, calculate, day, record } = this.props
-    setCount(Math.max(count, 0) || 0, day, record) && calculate()
+  handleCountChange = count => event => {
+    const { setCount, calculate, date, record } = this.props
+    setCount(Math.max(count, 0) || 0, date, record) && calculate()
+  }
+
+  handleDayChange = date => event => {
+    if (date.isBetween(
+      moment().subtract(1, 'year').endOf('year'),
+      moment().add(1, 'day').startOf('day')
+    )) this.props.setDay(date)
   }
 
   render() {
-    const { day, count } = this.props
+    const { date, count } = this.props
     return (
       <div styleName="card">
-        <div styleName="title">{day.format('MMM D, YYYY')}</div>
+        <div styleName="title">
+          <Icons.ChevronLeft
+            styleName="left"
+            onClick={this.handleDayChange(moment(date).subtract(1, 'day'))}/>
+          <div styleName="date">{date.format('MMM D, YYYY')}</div>
+          <Icons.ChevronRight styleName="right" onClick={this.handleDayChange(moment(date).add(1, 'day'))} />
+        </div>
         <div styleName="count">{count}</div>
         <div styleName="actions" ref="actions">
           <div
@@ -80,7 +91,7 @@ class Counter extends Component {
 }
 
 export default connect(state => ({
-  day: state.count.day,
+  date: state.count.date,
   count: state.count.current.count,
   record: state.count.current.id,
   total: state.count.total,
@@ -89,5 +100,4 @@ export default connect(state => ({
   setDay,
   calculate,
   setCount,
-  getCount,
 })(CSS(Counter, styles))
