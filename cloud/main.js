@@ -48,8 +48,6 @@ var isRelation = function isRelation(key) {
 var findOrCreate = function findOrCreate(Model, params) {
   var query = new Parse.Query(Model);
 
-  console.log('params');
-  console.log(params);
   /**
    * If a relation is passed in, handle it accordingly.
    * A relation is any key starting with _[A-Z]
@@ -121,8 +119,6 @@ Parse.Cloud.define('updateOrCreate', function (request, response) {
   var Model = Parse.Object.extend(modelName);
 
   findOrCreate(Model, $where).then(function (instance) {
-    console.log('instance');
-    console.log(JSON.stringify(instance));
     instance.set($update);
     instance.save(response);
   }).fail(response.error);

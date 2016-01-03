@@ -51,6 +51,10 @@
   &:--hoverable:active { @mixin colorize background-color, l(- 10%); }
 }
 
+._field {
+  position: relative
+}
+
 ._input {
   display: block;
   padding: 12px 24px;
@@ -62,6 +66,23 @@
   box-sizing: border-box;
 
   @mixin round-border 1px;
+}
+
+._input_with_icon {
+  composes: _input;
+  padding-left: 48px;
+}
+
+._input_icon {
+  position: absolute;
+  display: inline-block;
+  height: 100%;
+  width: 24px;
+  margin-left: 16px;
+  box-sizing: border-box;
+  left: 0;
+  top: 0;
+  color: color(var(--text) l(- 10%));
 }
 
 ._card {

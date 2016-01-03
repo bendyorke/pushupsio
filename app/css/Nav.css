@@ -21,11 +21,11 @@
 }
 
 .logo {
-  width: 50px;
+  width: 48px;
   margin-right: 16px;
   font-size: 80%;
 
-  @mixin break 500 { width: 70px; }
+  @mixin break 500 { width: 72px; }
 }
 
 .text {

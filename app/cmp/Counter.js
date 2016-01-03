@@ -38,7 +38,7 @@ class Counter extends Component {
       hoverable: false,
     })
 
-    this.handleChange(count)(event)
+    this.handleCountChange(count)(event)
   }
 
   handleClick = count => event => {
@@ -75,14 +75,14 @@ class Counter extends Component {
             styleName="decrement"
             onTouchEnd={this.handleTap(count - 1)}
             onClick={this.handleClick(count - 1)}>
-            –
+            <Icons.Minus styleName="minus" />
           </div>
           <div
             className={!this.state.hoverable && '_unhoverable'}
             styleName="increment"
             onTouchEnd={this.handleTap(count + 1)}
             onClick={this.handleClick(count + 1)}>
-            +
+            <Icons.Plus styleName="plus" />
           </div>
         </div>
       </div>

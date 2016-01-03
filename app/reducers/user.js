@@ -7,13 +7,14 @@ const userObject = (user = {}) => ({
   stored: { ...user.attributes },
 })
 
-const init = userObject(Parse.User.current())
+const init = userObject(Parse.User.current() || {})
 
 export default function(state = init, action) {
   switch(action.type) {
   case types.INITIALIZE:
-    Parse.User.current().set(action.payload.user)
-    return userObject(action.payload.user)
+    let currentUser = Parse.User.current()
+    if (currentUser) currentUser.set(action.payload.user)
+    return userObject(action.payload.user || {})
 
   case types.UPDATE_USER_SUCCESS:
     Parse.User.current().set(action.payload.user)

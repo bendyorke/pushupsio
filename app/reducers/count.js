@@ -27,7 +27,7 @@ export default function countReducer(state = init, action) {
       return { ...memo, [key]: historyItem }
     }, {})
 
-    let current = createHistoryItem(state.date)
+    let current = createHistoryItem({ date: state.date })
 
     return { ...state, history, current }
 
@@ -59,8 +59,8 @@ export default function countReducer(state = init, action) {
 
   case types.SET_COUNT_SUCCESS:
     let { key, ...historyItem } = createHistoryItem({
-      ...action.payload,
-      ...action.payload.attributes,
+      ...temp,
+      ...temp.attributes,
     })
 
     return {

@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { signIn, signUp } from 'actions'
+import { signIn, signUp, initialize } from 'actions'
 import { pushPath } from 'redux-simple-router'
+import Icons from 'cmp/Icons'
 
 import Error from 'cmp/Error'
 
@@ -22,7 +23,8 @@ class Register extends Component {
   }
 
   success() {
-    const { pushPath } = this.props
+    const { pushPath, initialize } = this.props
+    initialize()
     pushPath('/dashboard')
   }
 
@@ -56,17 +58,23 @@ class Register extends Component {
         <div styleName="title">Register</div>
         <div styleName="content">
           {this.state.error && <Error error={this.state.error} />}
-          <input
-            styleName="email"
-            ref="email"
-            placeholder="email"
-            onChange={this.update} />
-          <input
-            styleName="password"
-            ref="password"
-            type="password"
-            placeholder="••••••••"
-            onChange={this.update} />
+          <div styleName="_field">
+            <input
+              styleName="email"
+              ref="email"
+              placeholder="email"
+              onChange={this.update} />
+            <Icons.Mail styleName="_input_icon" />
+          </div>
+          <div styleName="_field">
+            <input
+              styleName="password"
+              ref="password"
+              type="password"
+              placeholder="••••••••"
+              onChange={this.update} />
+            <Icons.Key styleName="_input_icon" />
+          </div>
 
           <div styleName="actions">
             <div styleName="sign-in" onClick={this.signIn}>Sign In</div>
@@ -83,4 +91,5 @@ export default connect(state => ({
   signIn,
   signUp,
   pushPath,
+  initialize,
 })(CSS(Register, styles))

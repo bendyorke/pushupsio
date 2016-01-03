@@ -13,12 +13,12 @@
 }
 
 .email {
-  composes: _input;
+  composes: _input_with_icon;
   width: 100%;
 }
 
 .password {
-  composes: _input;
+  composes: _input_with_icon;
   width: 100%;
 }
 

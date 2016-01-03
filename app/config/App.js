@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 import { initialize } from 'actions'
+import Parse from 'parse'
 
 import CSS from 'react-css-modules'
 import styles from 'css/App'
@@ -12,7 +13,9 @@ class App extends Component {
   }
 
   componentWillMount() {
-    this.props.store.dispatch(initialize())
+    if (Parse.User.current()) {
+      this.props.store.dispatch(initialize())
+    }
   }
 
   render() {
