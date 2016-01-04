@@ -1,0 +1,41 @@
+@import 'base';
+
+@keyframes carousel {
+  0%, 20%, 100% { transform: translateY(0%); }
+  25%, 45%      { transform: translateY(-25%); }
+  50%, 70%      { transform: translateY(-50%); }
+  75%, 90%      { transform: translateY(-75%); }
+}
+
+.container {
+  vertical-align: bottom;
+  position: relative;
+  overflow: hidden;
+
+  display: block;
+  width: 100%;
+  height: 60px;
+  @mixin break 500 {
+    display: inline-block;
+    width: 140px;
+    height: 48px;
+  }
+}
+
+.all-counts {
+  position: absolute;
+  left: 0;
+  height: 400%;
+  width: 100%;
+  animation: carousel 10s infinite;
+}
+
+.count {
+  height: 25%;
+  width: 100%;
+  text-align: center;
+  @mixin colorize color;
+
+  font-size: 60px;
+  @mixin break 500 { font-size: 48px; }
+}

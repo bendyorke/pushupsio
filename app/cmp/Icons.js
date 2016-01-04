@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react'
 const svgs = {
   ChevronLeft: require('react-icons/lib/go/chevron-left'),
   ChevronRight: require('react-icons/lib/go/chevron-right'),
+  ChevronDown: require('react-icons/lib/go/chevron-down'),
   Plus: require('react-icons/lib/go/plus'),
   Minus: require('react-icons/lib/go/dash'),
   Mail: require('react-icons/lib/go/mail'),

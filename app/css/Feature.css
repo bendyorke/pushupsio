@@ -1,0 +1,33 @@
+@import 'base';
+
+.feature {
+  composes: _hoverable;
+  text-align: left;
+  box-sizing: border-box;
+  padding: 24px 36px 24px 24px;
+  color: var(--background);
+
+  @mixin break 600 {
+    height: 144px;
+    opacity: 0.6;
+    &:hover { opacity: 0.8; }
+  }
+}
+
+.active, .active:hover {
+  opacity: 1;
+}
+
+.title {
+  font-size: 18px;
+  padding-bottom: 12px;
+}
+
+.description {
+  font-weight: 300;
+  line-height: 130%;
+
+  font-size: 18px;
+  @mixin break 600 { font-size: 14px; }
+  @mixin break 800 { font-size: 16px; }
+}

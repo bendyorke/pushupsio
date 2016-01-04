@@ -54,6 +54,7 @@ module.exports = {
       require('postcss-nested'),
       require('postcss-simple-vars'),
       require('postcss-custom-properties')({ variables: require('./app/config/colors').all }),
+      require('postcss-calc'),
       require('postcss-color-hex-alpha'),
       require('postcss-color-function'),
       require('postcss-property-lookup'),

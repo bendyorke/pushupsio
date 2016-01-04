@@ -1,16 +1,27 @@
 @import 'base';
 
 .container {
-  max-width: 980px;
-  margin: 0 auto;
-  margin-bottom: 12px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 900;
+}
+
+.content {
+  composes: _content;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 24px 12px 12px;
   height: 60px;
+  margin-top: 0;
 
   @mixin flex-block row, space-between;
 
   @mixin break 500 {
-    padding: 12px;
-    height: 60px;
+    margin-top: 0;
+    padding: 24px;
+    height: 96px;
   }
 }
 

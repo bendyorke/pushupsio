@@ -14,7 +14,7 @@ class Profile extends Component {
 
   render() {
     return (
-      <div>
+      <div styleName="_content">
         <Account />
         <Goal />
         <Color />

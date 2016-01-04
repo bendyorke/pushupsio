@@ -54,31 +54,33 @@ class Register extends Component {
 
   render() {
     return (
-      <div styleName="card">
-        <div styleName="title">Register</div>
-        <div styleName="content">
-          {this.state.error && <Error error={this.state.error} />}
-          <div styleName="_field">
-            <input
-              styleName="email"
-              ref="email"
-              placeholder="email"
-              onChange={this.update} />
-            <Icons.Mail styleName="_input_icon" />
-          </div>
-          <div styleName="_field">
-            <input
-              styleName="password"
-              ref="password"
-              type="password"
-              placeholder="••••••••"
-              onChange={this.update} />
-            <Icons.Key styleName="_input_icon" />
-          </div>
+      <div styleName="_content">
+        <div styleName="card">
+          <div styleName="title">Register</div>
+          <div styleName="content">
+            {this.state.error && <Error error={this.state.error} />}
+            <div styleName="_field">
+              <input
+                styleName="email"
+                ref="email"
+                placeholder="email"
+                onChange={this.update} />
+              <Icons.Mail styleName="_input_icon" />
+            </div>
+            <div styleName="_field">
+              <input
+                styleName="password"
+                ref="password"
+                type="password"
+                placeholder="••••••••"
+                onChange={this.update} />
+              <Icons.Key styleName="_input_icon" />
+            </div>
 
-          <div styleName="actions">
-            <div styleName="sign-in" onClick={this.signIn}>Sign In</div>
-            <div styleName="sign-up" onClick={this.signUp}>Sign Up</div>
+            <div styleName="actions">
+              <div styleName="sign-in" onClick={this.signIn}>Sign In</div>
+              <div styleName="sign-up" onClick={this.signUp}>Sign Up</div>
+            </div>
           </div>
         </div>
       </div>

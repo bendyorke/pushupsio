@@ -4,6 +4,31 @@
   @media screen and (min-width: $(breakpoint)px) { @mixin-content; }
 }
 
+@define-mixin vh $percent: 0 {
+  height: $(percent)vh;
+
+  /**
+   * Fix for iPad, portrait
+   */
+  @media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait) {
+    height: calc($percent * 1024px);
+  }
+
+  /**
+   * Fix for iPad, landscape
+   */
+  @media all and (device-width: 768px) and (device-height: 1024px) and (orientation:landscape) {
+    height: calc($percent * 768px);
+  }
+
+  /**
+   * Fix for iPhone 5
+   */
+  @media screen and (device-aspect-ratio: 40/71) and (device-height: 500px) {
+    height: calc($percent * 500px);
+  }
+}
+
 @define-mixin pseudo $position: before, $width: 100%, $height: 100% {
   position: relative;
 
@@ -23,6 +48,7 @@
 }
 
 @define-mixin flex-block $flow: row, $justify: center, $align: center {
+  display: block;
   display: flex;
   flex-flow: $flow;
   justify-content: $justify;

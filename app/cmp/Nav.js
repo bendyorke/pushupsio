@@ -41,12 +41,14 @@ class Nav extends Component {
     const [path, text] = this.button()
     return (
       <div styleName="container">
-        <Link styleName="link" to="/">
-          <Logo styleName="logo" weight="400" color={this.props.user.color}/>
-          <div styleName="text">pushups.io</div>
-        </Link>
-        <div styleName="_space" />
-        <Link styleName="button" to={path}>{text}</Link>
+        <div styleName="content">
+          <Link styleName="link" to="/">
+            <Logo styleName="logo" weight="400" color={this.props.user.color}/>
+            <div styleName="text">pushups.io</div>
+          </Link>
+          <div styleName="_space" />
+          <Link styleName="button" to={path}>{text}</Link>
+        </div>
       </div>
     )
   }

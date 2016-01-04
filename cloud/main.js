@@ -127,16 +127,16 @@ Parse.Cloud.define('updateOrCreate', function (request, response) {
 
 var express = require('express');
 var app = express();
-var bundles = {
-  "JPiiqF69y6gBwRLvcJAhympE23USkPNTxPIr84GI": "pushups.js",
-  "iYHw28DmfKV2v7JYAAdrl8ViR7cSMWXDvHvK0i8E": "dev-pushups.js"
+var environments = {
+  "JPiiqF69y6gBwRLvcJAhympE23USkPNTxPIr84GI": "prod",
+  "iYHw28DmfKV2v7JYAAdrl8ViR7cSMWXDvHvK0i8E": "dev"
 };
 
 app.set('view engine', 'ejs');
 
 app.get('*', function (req, res) {
-  var bundle = bundles[Parse.applicationId];
-  res.render('cloud/index.ejs', { bundle: bundle });
+  var env = environments[Parse.applicationId];
+  res.render('cloud/index.ejs', { env: env });
 });
 
 app.listen();

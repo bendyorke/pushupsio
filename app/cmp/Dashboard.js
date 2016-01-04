@@ -13,7 +13,7 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div>
+      <div styleName="_content">
         <Counter />
         <Analytics />
         <History />
