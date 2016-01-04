@@ -62,7 +62,8 @@
   border-width: 1px;
   border-style: solid;
 
-  &:not(:hover) { @mixin colorize color; }
+  @mixin colorize color;
+  &:--hoverable:hover  { @mixin decolorize color; color: var(--background); }
 
   @mixin decolorize background-color;
   &:--hoverable:hover  { @mixin colorize background-color, l(+ 5%); }

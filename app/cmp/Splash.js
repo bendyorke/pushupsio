@@ -40,7 +40,7 @@ class Splash extends Component {
               active={feature == 1}
               onClick={this.handleClick}
               title="Simple">
-              pushups.io couldn't be easier to use.  Just add and subtract pushups as you go throughout your day.
+              pushups.io couldn't be easier to use.  Just set a goal for the year, and add and subtract pushups as you go throughout your day.
             </Feature>
             <Feature
               styleName="feature"

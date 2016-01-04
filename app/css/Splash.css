@@ -120,5 +120,5 @@
   font-weight: 400;
   letter-spacing: 2px;
   text-decoration: none;
-  @mixin colorize color, l(+ 10%);
+  @mixin colorize color, l(+ 15%);
 }
