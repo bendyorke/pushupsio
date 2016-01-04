@@ -1,0 +1,19 @@
+@import 'base';
+
+.details {
+  text-align: center;
+  width: 80%;
+  margin: 12px auto;
+}
+
+.input {
+  composes: _input;
+  width: 80%;
+}
+
+.button {
+  composes: _button;
+  width: 80%;
+  box-sizing: border-box;
+  padding: 12px;
+}

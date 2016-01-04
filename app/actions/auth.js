@@ -26,3 +26,10 @@ export const signOut = () => {
     payload: Parse.User.logOut(),
   }
 }
+
+export const resetPassword = email => {
+  return {
+    type: types.RESET_PASSWORD,
+    payload: Parse.User.requestPasswordReset(email),
+  }
+}

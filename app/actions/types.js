@@ -20,6 +20,7 @@ export const SIGN_UP_SUCCESS = 'SIGNUP_SUCCESS'
 export const SIGN_OUT = 'SIGNOUT'
 export const SIGN_OUT_ERROR = 'SIGNOUT_ERROR'
 export const SIGN_OUT_SUCCESS = 'SIGNOUT_SUCCESS'
+export const RESET_PASSWORD = 'RESET_PASSWORD'
 
 /* APP */
 export const INITIALIZE = 'INITIALIZE'

@@ -2,8 +2,9 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { signIn, signUp, initialize } from 'actions'
 import { pushPath } from 'redux-simple-router'
-import Icons from 'cmp/Icons'
+import { Link } from 'react-router'
 
+import Icons from 'cmp/Icons'
 import Error from 'cmp/Error'
 
 import CSS from 'css/apply'
@@ -14,6 +15,7 @@ class Register extends Component {
     signIn: PropTypes.func,
     signUp: PropTypes.func,
     pushPath: PropTypes.func,
+    path: PropTypes.string,
   }
 
   state = {
@@ -53,6 +55,7 @@ class Register extends Component {
   }
 
   render() {
+    const { path } = this.props
     return (
       <div styleName="_content">
         <div styleName="card">
@@ -77,10 +80,20 @@ class Register extends Component {
               <Icons.Key styleName="_input_icon" />
             </div>
 
-            <div styleName="actions">
-              <div styleName="sign-in" onClick={this.signIn}>Sign In</div>
-              <div styleName="sign-up" onClick={this.signUp}>Sign Up</div>
-            </div>
+            {path === '/signin' && (
+              <div styleName="actions">
+                <div styleName="sign-in" onClick={this.signIn}>Sign In</div>
+                Or <Link to="/register" styleName="switch">click here to sign up</Link>
+                <Link to="/forgot" styleName="forgot-password">Forgot your password?</Link>
+              </div>
+            )}
+
+            {path === '/register' && (
+              <div styleName="actions">
+                <div styleName="sign-up" onClick={this.signUp}>Sign Up</div>
+                Or <Link to="/signin" styleName="switch">click here to sign in</Link>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -89,6 +102,7 @@ class Register extends Component {
 }
 
 export default connect(state => ({
+  path: state.routing.path,
 }), {
   signIn,
   signUp,

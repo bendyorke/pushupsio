@@ -24,19 +24,29 @@
 
 .actions {
   width: 100%;
-  @mixin flex-block row, space-between, flex-start;
+  text-align: center;
 }
 
 .sign-up {
   composes: _button;
-  flex: 1;
   padding: 12px;
-  margin-left: 6px;
+  margin-bottom: 12px;
 }
 
 .sign-in {
-  composes: _line_button;
-  flex: 1;
+  composes: _button;
   padding: 12px;
-  margin-right: 6px;
+  margin-bottom: 12px;
+}
+
+.switch {
+  &, &:hover, &:active { @mixin colorize color; }
+}
+
+.forgot-password {
+  composes: _hoverable;
+  composes: switch;
+  display: block;
+  margin-top: 12px;
+  text-decoration: underline;
 }
