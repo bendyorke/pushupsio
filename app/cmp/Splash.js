@@ -56,7 +56,7 @@ class Splash extends Component {
               active={feature == 3}
               onClick={this.handleClick}
               title="Informative">
-              Get at at-a-glance overview of your current progress.  All the tools you need to reach your goal.
+              Get an at-a-glance overview of your current progress.  All the tools you need to reach your goal.
             </Feature>
           </div>
           <div styleName="feature-preview">

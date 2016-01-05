@@ -13,10 +13,10 @@
 }
 
 .space {
+  height: 144px;
+  @mixin break 500 { height: 188px; }
+  @mixin break 800 { height: 240px; }
   flex: 1;
-  min-height: 144px;
-  @mixin break 500 { min-height: 188px; }
-  @mixin break 800 { min-height: 240px; }
 }
 
 .title {

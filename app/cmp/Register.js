@@ -42,13 +42,15 @@ class Register extends Component {
     })
   }
 
-  signIn = () => {
+  signIn = event => {
+    event.preventDefault()
     const { email, password } = this.state
     this.props.signIn(email, password)
       .then(::this.success, ::this.err)
   }
 
-  signUp = () => {
+  signUp = event => {
+    event.preventDefault()
     const { email, password } = this.state
     this.props.signUp(email, password)
       .then(::this.success, ::this.err)
@@ -60,7 +62,7 @@ class Register extends Component {
       <div styleName="_content">
         <div styleName="card">
           <div styleName="title">Register</div>
-          <div styleName="content">
+          <form styleName="content" onSubmit={path === '/signin' ? this.signIn : this.signUp}>
             {this.state.error && <Error error={this.state.error} />}
             <div styleName="_field">
               <input
@@ -82,7 +84,10 @@ class Register extends Component {
 
             {path === '/signin' && (
               <div styleName="actions">
-                <div styleName="sign-in" onClick={this.signIn}>Sign In</div>
+                <input
+                  type="submit"
+                  styleName="sign-in"
+                  value="Sign In" />
                 Or <Link to="/register" styleName="switch">click here to sign up</Link>
                 <Link to="/forgot" styleName="forgot-password">Forgot your password?</Link>
               </div>
@@ -90,11 +95,14 @@ class Register extends Component {
 
             {path === '/register' && (
               <div styleName="actions">
-                <div styleName="sign-up" onClick={this.signUp}>Sign Up</div>
+                <input
+                  type="submit"
+                  styleName="sign-up"
+                  value="Sign Up" />
                 Or <Link to="/signin" styleName="switch">click here to sign in</Link>
               </div>
             )}
-          </div>
+          </form>
         </div>
       </div>
     )
