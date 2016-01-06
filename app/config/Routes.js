@@ -1,5 +1,4 @@
 import React from 'react'
-import Parse from 'parse'
 import { Provider } from 'react-redux'
 import { Router, Route, IndexRoute } from 'react-router'
 

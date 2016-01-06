@@ -57,9 +57,17 @@ const throttleMiddleware = store => next => {
   }
 }
 
-export default applyMiddleware(
+var middleware = [
   thunk,
   throttleMiddleware,
-  promiseMiddleware,
-  createLogger({collapsed: true})
-)
+  promiseMiddleware
+]
+
+if (__DEV__) {
+  middleware = [
+    ...middleware,
+    createLogger({collapsed: true}),
+  ]
+}
+
+export default applyMiddleware(...middleware)

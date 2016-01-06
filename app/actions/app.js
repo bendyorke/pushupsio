@@ -1,5 +1,4 @@
 import * as types from './types'
-import Parse from 'parse'
 import moment from 'moment'
 import { setDay } from 'actions/count'
 

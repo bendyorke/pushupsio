@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react'
 import { initialize } from 'actions'
-import Parse from 'parse'
 
 import CSS from 'react-css-modules'
 import styles from 'css/App'

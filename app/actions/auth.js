@@ -1,5 +1,4 @@
 import * as types from 'actions/types'
-import Parse from 'parse'
 
 export const signIn = (email, password) => {
   return {

@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { updateColor, updateUser } from 'actions'
-import Parse from 'parse'
 
 import Transition from 'react-addons-css-transition-group'
 

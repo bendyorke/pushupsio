@@ -1,5 +1,4 @@
 import * as types from 'actions/types'
-import Parse from 'parse'
 
 export const updateUser = attrs => {
   const user = Parse.User.current()

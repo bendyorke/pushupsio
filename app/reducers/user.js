@@ -1,5 +1,4 @@
 import createReducer from 'reducers/createReducer'
-import Parse from 'parse'
 
 const userObject = (user = {}) => ({
   ...user,
@@ -9,22 +8,39 @@ const userObject = (user = {}) => ({
 
 const initial = userObject(Parse.User.current() || {})
 
+const setAmpId = id => {
+  if (__PROD__ && window.amplitude) window.amplitude.setUserId(id)
+}
+
 const userReducer = (state, action) => ({
   INITIALIZE() {
+    const user = action.payload.user || {}
+    setAmpId(user.id)
+
     const currentUser = Parse.User.current()
-    if (currentUser) currentUser.set(action.payload.user)
-    return userObject(action.payload.user || {})
+    if (currentUser) {
+      const { sessionToken, ...attributes } = currentUser
+      currentUser.set(attributes)
+    }
+
+    return userObject(user)
   },
 
   UPDATE_USER_SUCCESS() {
-    Parse.User.current().set(action.payload.user)
-    return userObject(action.payload)
+    const user = action.payload
+    const { sessionToken, ...attributes } = user
+    Parse.User.current().set(attributes)
+
+    return userObject(user)
   },
 
   SIGN_OUT_SUCCESS: 'SIGN_IN_SUCCESS',
   SIGN_UP_SUCCESS: 'SIGN_IN_SUCCESS',
   SIGN_IN_SUCCESS() {
-    return userObject(action.payload)
+    const user = action.payload || {}
+    setAmpId(user.id)
+
+    return userObject(user)
   },
 
   UPDATE_COLOR() {
