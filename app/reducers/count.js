@@ -1,8 +1,8 @@
-import * as types from 'actions/types'
+import createReducer from 'reducers/createReducer'
 import moment from 'moment'
 import { createKey, createHistoryItem } from 'utils/history'
 
-const init = {
+const initial = {
   date: moment().startOf('day'),
   current: {
     id: undefined,
@@ -13,12 +13,11 @@ const init = {
   history: {},
 }
 
-export default function countReducer(state = init, action) {
-  switch(action.type) {
-  case types.INITIALIZE:
-    let records = action.payload.records || []
+const countReducer = (state, action) => ({
+  INITIALIZE() {
+    const records = action.payload.records || []
 
-    let history = records.reduce((memo, record) => {
+    const history = records.reduce((memo, record) => {
       let { key, ...historyItem } = createHistoryItem({
         ...record,
         ...record.attributes
@@ -27,49 +26,44 @@ export default function countReducer(state = init, action) {
       return { ...memo, [key]: historyItem }
     }, {})
 
-    let current = createHistoryItem({ date: state.date })
+    const current = createHistoryItem({ date: state.date })
 
     return { ...state, history, current }
+  },
 
-  case types.SET_DAY:
-    let dayInHistory = state.history[createKey(action.payload)]
+  SET_DAY() {
+    const dayInHistory = state.history[createKey(action.payload)]
     return {
       ...state,
       date: action.payload,
       current: createHistoryItem(dayInHistory),
     }
+  },
 
-  case types.SET_COUNT:
-    let { key: historyKey, ...newHistoryItem } = createHistoryItem({
+  SET_COUNT() {
+    const { key, ...newHistoryItem } = createHistoryItem({
       ...state.history[createKey(action.data.date)],
       date: action.data.date,
       count: action.data.count
     })
 
-    let existingHistoryItem = state.history[historyKey] || {}
-
-    return {
-      ...state,
-      history: { ...state.history, [historyKey]: {
-        ...existingHistoryItem,
+    const newHistory = {
+      [key]: {
+        ...state.history[key],
         ...newHistoryItem,
-      }},
-      current: { ...state.current, count: action.data.count },
+      },
     }
 
-  case types.SET_COUNT_SUCCESS:
-    let { key, ...historyItem } = createHistoryItem({
-      ...temp,
-      ...temp.attributes,
-    })
+    const newCurrent = state.current.date.isSame(newHistoryItem.date, 'day')
+      ? { count: action.data.count }
+      : {}
 
     return {
       ...state,
-      history: { ...state.history, [key]: historyItem },
-      current: { key, ...historyItem }
+      history: { ...state.history, ...newHistory },
+      current: { ...state.current, ...newCurrent },
     }
+  },
+})
 
-  default:
-    return state
-  }
-}
+export default createReducer(countReducer, initial)

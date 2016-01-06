@@ -20,6 +20,7 @@
     "babel-polyfill": "^6.3.14",
     "express": "^4.13.3",
     "history": "^1.13.1",
+    "lodash": "^3.10.1",
     "moment": "^2.10.6",
     "packageify": "^0.2.3",
     "parse": "^1.6.13",

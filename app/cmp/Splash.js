@@ -28,7 +28,7 @@ class Splash extends Component {
           <Link styleName="sign-up" to="/register">Sign up today</Link>
           <div styleName="_space" />
           <div styleName="details">
-            More details
+            Scroll down
             <Icons.ChevronDown styleName="details-icon" />
           </div>
         </section>
