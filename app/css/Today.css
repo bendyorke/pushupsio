@@ -1,0 +1,24 @@
+@import 'base';
+
+.card {
+  composes: _card;
+  @mixin colorize;
+  @mixin decolorize color, var(--background);
+  padding: 12px;
+}
+
+.remaining {
+  font-size: 18px;
+  letter-spacing: 1px;
+
+  em {
+    font-size: 32px;
+    font-style: normal;
+    padding: 4px;
+    vertical-align: middle;
+  }
+}
+
+.reached {
+  text-align: center;
+}
