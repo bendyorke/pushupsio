@@ -15,7 +15,7 @@ const promiseMiddleware = store => next => action => {
 
   const onError = error => {
     if (error.message === 'success') return onSuccess()
-    setTimeout(() => { throw error }, 0)
+    setTimeout(() => { throw new Error(error && error.message || JSON.stringify(error)) }, 0)
     store.dispatch({
       type: action.type + '_ERROR',
       payload: error,
