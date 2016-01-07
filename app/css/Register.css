@@ -31,12 +31,14 @@
   composes: _button;
   padding: 12px;
   margin-bottom: 12px;
+  width: 100%;
 }
 
 .sign-in {
   composes: _button;
   padding: 12px;
   margin-bottom: 12px;
+  width: 100%;
 }
 
 .switch {

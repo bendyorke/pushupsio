@@ -19,7 +19,9 @@ class SignOut extends Component {
 
   render() {
     return (
-      <div>Signing you out</div>
+      <div styleName="_content">
+        <div styleName="card">Signing you out</div>
+      </div>
     )
   }
 }

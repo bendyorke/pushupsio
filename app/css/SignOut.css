@@ -1,0 +1,8 @@
+@import 'base';
+
+.card {
+  composes: _card;
+  @mixin colorize background, a(80%);
+  @mixin decolorize color, var(--background);
+  padding: 12px;
+}
