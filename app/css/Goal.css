@@ -35,7 +35,7 @@
   @mixin react-transition did-leave {
     opacity: 0;
     transform: translate3d(0,$distance,0);
-    transition: all $duration ease calc(1.5s - $duration);
+    transition: all $duration ease calc(0.5s - $duration);
   }
 }
 
@@ -45,4 +45,8 @@
   padding: 12px;
   margin-top: 12px;
   width: 100%;
+}
+
+.target {
+  padding-top: 12px;
 }

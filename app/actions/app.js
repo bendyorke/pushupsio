@@ -1,11 +1,10 @@
-import * as types from './types'
 import moment from 'moment'
 import { setDay } from 'actions/count'
 
 export function initialize() {
   return dispatch => {
     Parse.Cloud.run('initialize')
-      .then(payload => dispatch({ type: types.INITIALIZE, payload }))
+      .then(payload => dispatch({ type: 'INITIALIZE', payload }))
       .then(() => dispatch(setDay()))
       .then(() => dispatch(calculate()))
   }
@@ -19,7 +18,7 @@ export function calculate() {
     } = getState()
 
     return dispatch({
-      type: types.CALCULATE,
+      type: 'CALCULATE',
       payload: { history, goal }
     })
   }

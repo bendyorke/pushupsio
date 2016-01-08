@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { updateUser } from 'actions'
+import { updateUser, saveUser, calculate } from 'actions'
 
 import Transition from 'react-addons-css-transition-group'
 
@@ -9,31 +9,25 @@ import styles from 'css/Account'
 
 class Account extends Component {
   state = {
-    email: null,
-    mode: null,
+    mode: 'save',
   }
 
   static propTypes = {
     email: PropTypes.string,
+    dirty: PropTypes.bool,
     updateUser: PropTypes.func,
+    updateEmail: PropTypes.func,
   }
 
-  componentDidUpdate() {
-    if (this.state.mode === 'saved') this.setState({mode: null})
-  }
-
-  handleChange = key => event => {
-    this.setState({
-      mode: 'editing',
-      [key]: event.target.value,
-    })
+  handleChange = event => {
+    this.props.updateUser({email: event.target.value})
   }
 
   handleSubmit = event => {
-    const { updateUser } = this.props
+    const { saveUser } = this.props
     this.setState({mode: 'saving'})
 
-    updateUser({
+    saveUser({
       email: this.refs.email.value,
     }).then(() => {
       this.setState({mode: 'saved'})
@@ -41,8 +35,8 @@ class Account extends Component {
   }
 
   render() {
-    const { email: currentEmail } = this.props
-    const { email: newEmail, mode } = this.state
+    const { email, dirty } = this.props
+    const { mode } = this.state
     return (
       <div styleName="_card">
         <div styleName="_card_title">Account</div>
@@ -50,19 +44,19 @@ class Account extends Component {
           styleName="input"
           type="email"
           ref="email"
-          value={mode ? newEmail : currentEmail}
-          onChange={this.handleChange('email')} />
+          value={email}
+          onChange={this.handleChange} />
         <Transition
           styleName="button-container"
           transitionName={styles.fallinout}
           transitionEnterTimeout={500}
-          transitionLeaveTimeout={1500}>
-          {mode &&
+          transitionLeaveTimeout={500}>
+          {dirty &&
             <div
               styleName="button fallinout"
               onClick={this.handleSubmit}
               key="save">
-              {mode === 'editing' && 'Save'}
+              {mode === 'save' && 'Save'}
               {mode === 'saving' && 'Saving...'}
               {mode === 'saved' && 'Saved!'}
             </div>
@@ -75,6 +69,8 @@ class Account extends Component {
 
 export default connect(state => ({
   email: state.user.email,
+  dirty: state.user.email !== state.user.stored.email,
 }), {
   updateUser,
+  saveUser,
 })(CSS(Account, styles))

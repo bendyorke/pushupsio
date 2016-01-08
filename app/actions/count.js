@@ -1,4 +1,3 @@
-import * as types from 'actions/types'
 import moment from 'moment'
 
 export function setCount(count, date, id) {
@@ -8,7 +7,7 @@ export function setCount(count, date, id) {
   })
 
   return {
-    type: types.SET_COUNT,
+    type: 'SET_COUNT',
     data: { count, date },
     payload: () => payload,
     throttle: 1000,
@@ -24,7 +23,7 @@ export function setDay(newDate) {
     if (!record || !record.id) dispatch(setCount(0, date))
 
     return dispatch({
-      type: types.SET_DAY,
+      type: 'SET_DAY',
       payload: date,
     })
   }

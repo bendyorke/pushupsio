@@ -1,18 +1,16 @@
-import * as types from 'actions/types'
-
-export const updateUser = attrs => {
+export const saveUser = attrs => {
   const user = Parse.User.current()
   Object.entries(attrs).map(entry => user.set(...entry))
 
   return {
-    type: types.UPDATE_USER,
+    type: 'SAVE_USER',
     payload: user.save(),
   }
 }
 
-export const updateColor = color => {
+export const updateUser = attrs => {
   return {
-    type: types.UPDATE_COLOR,
-    payload: color,
+    type: 'UPDATE_USER',
+    payload: attrs,
   }
 }

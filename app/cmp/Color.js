@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { updateColor, updateUser } from 'actions'
+import { updateUser, saveUser } from 'actions'
 
 import Transition from 'react-addons-css-transition-group'
 
@@ -11,43 +11,27 @@ import styles from 'css/Color'
 
 class Color extends Component {
   state = {
-    color: null,
-    mode: null,
+    mode: 'save',
   }
 
   static propTypes = {
     current: PropTypes.string,
     stored: PropTypes.string,
     updateUser: PropTypes.func,
-    updateColor: PropTypes.func,
+    saveUser: PropTypes.func,
   }
 
   static colors = Object.keys(colors)
 
-  componentDidUpdate() {
-    const { mode } = this.state
-    if (mode === 'samesame') this.cancel()
-    if (mode === 'saved') setTimeout(this.cancel, 1200)
-  }
-
-  cancel = () => {
-    this.setState({mode: null})
-  }
-
   handleSelect = color => event => {
-    this.props.updateColor(color)
-    if (color === this.props.stored) {
-      this.setState({ mode: 'samesame', color: null })
-    } else {
-      this.setState({ mode: 'editing', color })
-    }
+    this.props.updateUser({color})
   }
 
   handleSubmit = event => {
-    const { updateUser } = this.props
+    const { saveUser } = this.props
     this.setState({mode: 'saving'})
 
-    updateUser({
+    saveUser({
       color: this.state.color,
     }).then(() => {
       this.setState({mode: 'saved'})
@@ -65,24 +49,25 @@ class Color extends Component {
   }
 
   render() {
-    const { mode, color } = this.state;
+    const { dirty } = this.props
+    const { color: currentColor, mode } = this.state
     return (
       <div styleName="_card">
         <div styleName="_card_title">Color</div>
         <div styleName="colors">
-          {Color.colors.map(this.renderColor(color))}
+          {Color.colors.map(this.renderColor(currentColor))}
         </div>
         <Transition
           styleName="button-container"
           transitionName={styles.fallinout}
           transitionEnterTimeout={500}
           transitionLeaveTimeout={500}>
-          {mode &&
+          {dirty &&
             <div
               styleName="button fallinout"
               onClick={this.handleSubmit}
               key="save">
-              {(mode === 'editing' || mode === 'samesame') && 'Save'}
+              {(mode === 'save' || mode === 'samesame') && 'Save'}
               {mode === 'saving' && 'Saving...'}
               {mode === 'saved' && 'Saved!'}
             </div>
@@ -95,8 +80,8 @@ class Color extends Component {
 
 export default connect(state => ({
   current: state.user.color,
-  stored: state.user.stored.color,
+  dirty: state.user.color !== state.user.stored.color,
 }), {
-  updateColor,
   updateUser,
+  saveUser,
 })(CSS(Color, styles))

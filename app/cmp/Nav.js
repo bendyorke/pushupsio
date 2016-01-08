@@ -29,11 +29,12 @@ class Nav extends Component {
 
     switch(path) {
     case '/register':
+    case '/signin':
       return ['/', 'Home']
     case '/dashboard':
       return ['/profile', 'Profile']
     default:
-      return id ? ['/dashboard', 'Dashboard'] : ['/register', 'Sign In']
+      return id ? ['/dashboard', 'Dashboard'] : ['/signin', 'Sign In']
     }
   }
 

@@ -19,7 +19,6 @@ const analyticsReducer = (state, action) => ({
       .reduce((memo, historyItem) => memo + historyItem.count, 0)
 
     const average = total / Math.max(dayOfYear, 1)
-    console.log(goal, total, daysInYear, dayOfYear)
     const target = (goal - total) / Math.max(daysInYear - dayOfYear, 1)
 
     return { total, average, target }

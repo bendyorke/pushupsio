@@ -1,4 +1,3 @@
-export * as types from 'actions/types'
 export * from 'actions/auth'
 export * from 'actions/count'
 export * from 'actions/user'

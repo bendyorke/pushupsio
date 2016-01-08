@@ -26,7 +26,7 @@ const userReducer = (state, action) => ({
     return userObject(user)
   },
 
-  UPDATE_USER_SUCCESS() {
+  SAVE_USER_SUCCESS() {
     const user = action.payload
     const { sessionToken, ...attributes } = user
     Parse.User.current().set(attributes)
@@ -43,8 +43,8 @@ const userReducer = (state, action) => ({
     return userObject(user)
   },
 
-  UPDATE_COLOR() {
-    return { ...state, color: action.payload }
+  UPDATE_USER() {
+    return { ...state, ...action.payload }
   },
 })
 

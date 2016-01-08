@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { updateUser } from 'actions'
+import { updateUser, saveUser, calculate } from 'actions'
 
 import Transition from 'react-addons-css-transition-group'
 
@@ -9,31 +9,28 @@ import styles from 'css/Goal'
 
 class Goal extends Component {
   state = {
-    goal: null,
-    mode: null,
+    mode: 'save',
   }
 
   static propTypes = {
     goal: PropTypes.number,
+    dirty: PropTypes.bool,
+    target: PropTypes.number,
     updateUser: PropTypes.func,
+    saveUser: PropTypes.func,
+    calculate: PropTypes.func,
   }
 
-  componentDidUpdate() {
-    if (this.state.mode === 'saved') this.setState({mode: null})
-  }
-
-  handleChange = key => event => {
-    this.setState({
-      mode: 'editing',
-      [key]: event.target.value,
-    })
+  handleChange = event => {
+    this.props.updateUser({goal: parseInt(event.target.value)})
+    this.props.calculate()
   }
 
   handleSubmit = event => {
-    const { updateUser } = this.props
+    const { saveUser } = this.props
     this.setState({mode: 'saving'})
 
-    updateUser({
+    saveUser({
       goal: parseInt(this.refs.goal.value),
     }).then(() => {
       this.setState({mode: 'saved'})
@@ -41,8 +38,8 @@ class Goal extends Component {
   }
 
   render() {
-    const { goal: currentGoal } = this.props
-    const { goal: newGoal, mode } = this.state
+    const { goal, dirty, target } = this.props
+    const { mode } = this.state
     return (
       <div styleName="_card">
         <div styleName="_card_title">Goal</div>
@@ -50,19 +47,20 @@ class Goal extends Component {
           styleName="input"
           type="text"
           ref="goal"
-          value={mode ? newGoal : currentGoal}
-          onChange={this.handleChange('goal')} />
+          value={goal}
+          onChange={this.handleChange} />
+        <div styleName="target">That's only {target} pushups a day!</div>
         <Transition
           styleName="button-container"
           transitionName={styles.fallinout}
           transitionEnterTimeout={500}
-          transitionLeaveTimeout={1500}>
-          {mode &&
+          transitionLeaveTimeout={500}>
+          {dirty &&
             <div
               styleName="button fallinout"
               onClick={this.handleSubmit}
               key="save">
-              {mode === 'editing' && 'Save'}
+              {mode === 'save' && 'Save'}
               {mode === 'saving' && 'Saving...'}
               {mode === 'saved' && 'Saved!'}
             </div>
@@ -75,6 +73,10 @@ class Goal extends Component {
 
 export default connect(state => ({
   goal: state.user.goal,
+  dirty: state.user.goal !== state.user.stored.goal,
+  target: Math.ceil(state.analytics.target),
 }), {
   updateUser,
+  saveUser,
+  calculate,
 })(CSS(Goal, styles))

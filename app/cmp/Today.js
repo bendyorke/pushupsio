@@ -13,7 +13,6 @@ class Today extends Component {
   render() {
     const { target, current } = this.props
     const remaining = target - current
-    console.log(target, current)
     if (!remaining && remaining !== 0) return
     return (
       <div styleName="card">
