@@ -8,6 +8,7 @@
   text-align: center;
   box-sizing: border-box;
   padding: 24px;
+  min-height: 400px;
   @mixin vh 100;
   @mixin flex-block column;
 }
@@ -64,6 +65,7 @@
 .features {
   box-sizing: border-box;
   @mixin colorize;
+  min-height: 400px;
   @mixin vh 110;
   @mixin flex-block;
 }

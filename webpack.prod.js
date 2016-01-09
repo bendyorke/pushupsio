@@ -1,9 +1,13 @@
 var path = require('path')
 var webpack = require('webpack')
+var Extract = require('extract-text-webpack-plugin')
 
 var globals = {
   __DEV__: false,
   __PROD__: true,
+  'process.env': {
+    NODE_ENV: true,
+  },
 }
 
 module.exports = {
@@ -13,9 +17,6 @@ module.exports = {
     filename: 'pushups.js',
     publicPath: '/static/'
   },
-  plugins: [
-    new webpack.DefinePlugin(globals),
-  ],
   module: {
     loaders: [{
       test: /\.js$/,
@@ -23,11 +24,10 @@ module.exports = {
       include: path.join(__dirname, 'app'),
     }, {
       test: /\.css$/,
-      loaders: [
+      loader: Extract.extract(
         'style',
-        'css?module&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-        'postcss',
-      ],
+        'css?module&importLoaders=1&localIdentName=[hash:base64:5]!postcss'
+      ),
     }, {
       test: /\.png$/,
       loaders: ['url?limit=10000'],
@@ -54,8 +54,13 @@ module.exports = {
       require('postcss-color-function'),
       require('postcss-property-lookup'),
       require('postcss-custom-selectors'),
+      require('css-mqpacker'),
       require('autoprefixer'),
-      require('csswring'),
+      require('cssnano'),
     ]
   },
+  plugins: [
+    new webpack.DefinePlugin(globals),
+    new Extract('styles.css', {allChunks: true}),
+  ],
 }

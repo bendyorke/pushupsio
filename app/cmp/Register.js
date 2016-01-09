@@ -61,7 +61,7 @@ class Register extends Component {
     return (
       <div styleName="_content">
         <div styleName="card">
-          <div styleName="title">Register</div>
+          <div styleName="title">{ path === '/signin' ? 'Sign In' : 'Register' }</div>
           <form styleName="content" onSubmit={path === '/signin' ? this.signIn : this.signUp}>
             {this.state.error && <Error error={this.state.error} />}
             <div styleName="_field">
