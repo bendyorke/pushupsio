@@ -1,63 +1,13 @@
 @import 'base';
 
-.container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 900;
-}
-
 .content {
-  composes: _content;
-  height: 100%;
-  box-sizing: border-box;
-  padding: 24px 12px 12px;
-  height: 60px;
-  margin-top: 0;
+  padding-top: 126px;
+  background: var(--grey);
 
-  @mixin flex-block row, space-between;
-
-  @mixin break 500 {
-    margin-top: 0;
-    padding: 24px;
-    height: 96px;
+  transition: all 0.3s ease;
+  @mixin break 600 {
+    padding-top: 24px;
+    padding-left: 300px;
+    background: var(--white);
   }
-}
-
-.link {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-}
-
-.logo {
-  width: 48px;
-  margin-right: 16px;
-  font-size: 80%;
-
-  @mixin break 500 { width: 72px; }
-}
-
-.text {
-  letter-spacing: 2px;
-  font-size: 20px;
-  padding-bottom: 6px;
-
-  @mixin colorize color;
-
-  @mixin break 500 {
-    letter-spacing: 4px;
-    font-size: 30px;
-  }
-}
-
-.button {
-  composes: _button;
-  text-decoration: none;
-  letter-spacing: 1px;
-  font-size: 16px;
-  padding: 12px 12px;
-
-  @mixin break 500 { padding: 12px 24px; }
 }

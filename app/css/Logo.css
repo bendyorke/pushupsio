@@ -27,18 +27,18 @@
   box-sizing: border-box;
   border-radius: 50%;
 
-  @mixin colorize background-color;
+  @mixin colorize background-color, l(- 25%);
 }
 
 .ring::before {
   content: '';
   position: absolute;
   border-radius: 50%;
-  background: var(--background);
+  background: var(--white);
 }
 
 .ring:nth-child(1) {
-  @mixin center 100%, 80%;
+  @mixin center 100%, 84%;
 }
 
 .ring:nth-child(2) {
@@ -63,6 +63,6 @@
   left: 45%;
   top: 11%;
   z-index: 100;
-  background: var(--background);
+  background: var(--white);
 }
 

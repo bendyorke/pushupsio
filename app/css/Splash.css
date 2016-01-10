@@ -99,7 +99,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: var(--background);
+  background-color: var(--white);
   &:global(.screenshot1) { background-image: url('assets/screenshot1.png'); }
   &:global(.screenshot2) { background-image: url('assets/screenshot2.png'); }
   &:global(.screenshot3) { background-image: url('assets/screenshot3.png'); }
@@ -108,7 +108,7 @@
 .contact {
   height: 144px;
   font-weight: 300;
-  color: var(--background);
+  color: var(--white);
   text-align: center;
   box-sizing: border-box;
   padding: 48px;

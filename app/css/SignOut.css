@@ -3,6 +3,6 @@
 .card {
   composes: _card;
   @mixin colorize background, a(80%);
-  @mixin decolorize color, var(--background);
+  @mixin decolorize color, var(--white);
   padding: 12px;
 }

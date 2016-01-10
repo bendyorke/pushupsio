@@ -8,6 +8,10 @@ const svgs = {
   Minus: require('react-icons/lib/go/dash'),
   Mail: require('react-icons/lib/go/mail'),
   Key: require('react-icons/lib/go/key'),
+  Timeline: require('react-icons/lib/go/list-unordered'),
+  Analytics: require('react-icons/lib/go/graph'),
+  Profile: require('react-icons/lib/go/jersey'),
+  Edit: require('react-icons/lib/go/pencil'),
 }
 
 const Icon = Svg => props => (

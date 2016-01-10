@@ -6,21 +6,6 @@
 }
 
 ._content {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 12px;
-  box-sizing: border-box;
-  height: 100%;
-  width: 100%;
-
-  /**
-   * These give room for the nav at the top of the page
-   */
-  margin-top: 60px;
-  @mixin break 500 {
-    margin-top: 96px;
-  }
-
 }
 
 ._space {
@@ -45,7 +30,7 @@
   display: block;
   font-size: 14px;
   padding: 6px 12px;
-  color: var(--background);
+  color: var(--white);
   text-decoration: none;
   transition: all 0.2s ease;
 
@@ -65,7 +50,7 @@
   border-style: solid;
 
   @mixin colorize color;
-  &:--hoverable:hover  { @mixin decolorize color; color: var(--background); }
+  &:--hoverable:hover  { @mixin decolorize color; color: var(--white); }
 
   @mixin decolorize background-color;
   &:--hoverable:hover  { @mixin colorize background-color, l(+ 5%); }
@@ -127,7 +112,7 @@
   text-align: center;
   padding: 24px;
   margin-bottom: 24px;
-  color: var(--background);
+  color: var(--white);
   width: 100%;
   height: 72px;
   box-sizing: border-box;

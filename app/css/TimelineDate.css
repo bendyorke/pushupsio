@@ -1,0 +1,14 @@
+@import 'base';
+
+.container {
+  width: 60px;
+  height: 60px;
+  color: color(var(--grey) b(75%));
+}
+.month {
+  text-align: center;
+}
+.day {
+  text-align: center;
+  font-size: 20px;
+}

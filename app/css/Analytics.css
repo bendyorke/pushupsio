@@ -21,7 +21,7 @@
   align-items: center;
   padding: 4px 0;
 
-  &:not(:last-child) { border-bottom: 1px solid color(var(--background) l(- 20%)); }
+  &:not(:last-child) { border-bottom: 1px solid color(var(--white) l(- 20%)); }
 }
 
 .value {

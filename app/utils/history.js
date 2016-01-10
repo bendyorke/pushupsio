@@ -8,9 +8,9 @@ export function createKey(date) {
   return moment(date).format('MMDDYY')
 }
 
-export function createHistoryItem({ count = 0, id, date } = {}) {
+export function createHistoryItem({ count = 0, id, date, stored } = {}) {
   const serializedDay = date ? moment(date) : moment()
   const key = createKey(serializedDay)
 
-  return { count, id, key, date: serializedDay }
+  return { count, id, key, stored, date: serializedDay }
 }

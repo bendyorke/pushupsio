@@ -3,7 +3,7 @@
 .error {
   background: color(var(--hunter) l(+ 10%));
   border-color: @background;
-  color: var(--background);
+  color: var(--white);
   text-align: center;
   padding: 12px 24px;
   margin-bottom: 12px;

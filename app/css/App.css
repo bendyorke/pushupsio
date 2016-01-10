@@ -2,11 +2,12 @@
 
 :global {
   body, #root {
-    background: var(--background);
+    background: var(--white);
     font-family: sans-serif;
     min-height: 100vh;
     min-width: 300px;
     max-width: 100vw;
+    @mixin font;
   }
 
   html, body, h1, h2, h3, h4, h5, h6, a, p, blockquote {

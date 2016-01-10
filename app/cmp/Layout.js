@@ -33,8 +33,7 @@ class Layout extends Component {
       <div styleName="container">
         <div className={`colorize ${color}`} style={{background: 'none'}}>
           <div styleName="content">
-            <Nav />
-            {children}
+            <Nav>{children}</Nav>
           </div>
         </div>
       </div>

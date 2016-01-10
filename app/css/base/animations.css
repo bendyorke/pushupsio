@@ -1,0 +1,27 @@
+:global .fallinout {
+  $distance: -15px;
+  $duration: 0.3s;
+
+  @mixin react-transition will-enter {
+    opacity: 0;
+    transform: translate3d(0,$distance,0);
+  }
+
+  @mixin react-transition did-enter {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+    transition: all $duration ease;
+  }
+
+  @mixin react-transition will-leave {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+
+  @mixin react-transition did-leave {
+    opacity: 0;
+    transform: translate3d(0,$distance,0);
+    transition: all $duration ease calc(0.5s - $duration);
+  }
+}
+

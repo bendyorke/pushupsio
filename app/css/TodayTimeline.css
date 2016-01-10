@@ -1,0 +1,59 @@
+@import 'base';
+
+.container {
+  @mixin flex-block row, center, flex-start;
+  margin-right: 12px;
+  margin-bottom: 24px;
+}
+
+.card {
+  flex: 1;
+  background: var(--white);
+  box-shadow: 0px 1px 4px color(#33495e a(20%));
+}
+
+.count {
+  font-size: 60px;
+  text-align: center;
+  padding-top: 12px;
+}
+
+.label {
+  @mixin font Cabin;
+  font-weight: 200;
+  font-size: 16px;
+  opacity: 0.4;
+  text-align: center;
+  padding-bottom: 12px;
+}
+
+.actions {
+  display: flex;
+}
+
+.action {
+  flex: 1;
+  text-align: center;
+  font-size: 36px;
+  font-weight: 200;
+}
+
+.decrement {
+  composes: action;
+}
+
+.increment {
+  composes: action;
+}
+
+.action-seperator {
+  width: 1px;
+  height: 20px;
+  background: #33459e;
+  opacity: 0.2;
+  align-self: center;
+}
+
+.star {
+  width: 36px;
+}

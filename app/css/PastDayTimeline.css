@@ -1,0 +1,34 @@
+@import 'base';
+
+.container {
+  @mixin flex-block row, flex-start, flex-start;
+  margin-bottom: 24px;
+}
+
+.card {
+  composes: card from './TodayTimeline';
+  @mixin flex-block;
+  max-width: 300px;
+}
+
+.count {
+  font-size: 28px;
+  padding: 12px;
+  padding-left: 24px;
+}
+
+.label {
+  @mixin font Cabin;
+  flex: 1;
+  opacity: 0.4;
+}
+
+.edit {
+  flex: 0 0 12px;
+  padding: 12px 24px;
+  opacity: 0.4;
+}
+
+.star {
+  width: 36px;
+}

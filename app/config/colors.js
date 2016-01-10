@@ -13,7 +13,8 @@ exports.custom = {
 
 exports.defaults = {
   primary: exports.custom.royalty,
-  background: "#FEFEFE",
+  white: "#FEFEFE",
+  grey: "#F4F7FA",
   text: "#95A5A6",
 }
 

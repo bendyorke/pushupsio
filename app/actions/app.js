@@ -13,7 +13,7 @@ export function initialize() {
 export function calculate() {
   return (dispatch, getState) => {
     const {
-      count: { history },
+      history,
       user: { goal },
     } = getState()
 
