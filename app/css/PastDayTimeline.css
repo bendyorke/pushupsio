@@ -7,7 +7,7 @@
 
 .card {
   composes: card from './TodayTimeline';
-  @mixin flex-block;
+  @mixin flex-block row, center, stretch;
   max-width: 300px;
 }
 
@@ -52,6 +52,9 @@
   flex: 1;
   transition: all 0.2s ease;
   height: 16px;
+  color: #000A;
+  position: relative;
+  svg { height: 100%; width: 100%; position: absolute; top: 0; }
 }
 
 .pencil {

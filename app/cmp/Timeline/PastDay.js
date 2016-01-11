@@ -63,7 +63,7 @@ class PastDayTimeline extends Component {
     const transitionStyles = (order, visible) => ({
       height: visible ? 16 : 0,
       visibility: visible ? 'visible' : 'hidden',
-      transitionDelay: `${(reverse ? 5 - order : order) * animationSpeed}ms`,
+      transition: `all 0.2s ease ${(reverse ? 5 - order : order) * animationSpeed}ms`,
       opacity: visible ? 1 : 0,
     })
 
@@ -89,7 +89,7 @@ class PastDayTimeline extends Component {
             </div>
 
             {/* Edit state: minus, plus, check | close */}
-            <div styleName="edit">
+            <div styleName="edit" style={{visibility: editing ? 'visible' : 'hidden'}}>
               <Icons.Minus
                 styleName="minus"
                 style={transitionStyles(2, editing)}
