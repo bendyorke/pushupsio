@@ -6,7 +6,6 @@ import styles from 'css/Analytics'
 
 class Analytics extends Component {
   static propTypes = {
-    total: PropTypes.number,
     goal: PropTypes.number,
     average: PropTypes.number,
     target: PropTypes.number,
@@ -25,10 +24,6 @@ class Analytics extends Component {
 
         {goal && (
           <div styleName="stats">
-            <div styleName="stat">
-              <span styleName="value">{total}</span>
-              <span styleName="label">Pushups done this year</span>
-            </div>
             <div styleName="stat">
               <span styleName="value">{goal}</span>
               <span styleName="label">Goal for this year</span>
@@ -49,7 +44,6 @@ class Analytics extends Component {
 }
 
 export default connect(state => ({
-  total: state.analytics.total,
   goal: state.user.goal,
   average: state.analytics.average,
   target: state.analytics.target,

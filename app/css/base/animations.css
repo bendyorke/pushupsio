@@ -24,4 +24,3 @@
     transition: all $duration ease calc(0.5s - $duration);
   }
 }
-

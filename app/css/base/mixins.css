@@ -1,31 +1,39 @@
 @import './defaults';
 
-@define-mixin break $breakpoint {
-  @media screen and (min-width: $(breakpoint)px) { @mixin-content; }
+@define-mixin break $breakpoint, $maximum: nil {
+  @if $maximum == nil {
+    @media screen and (min-width: $(breakpoint)px) {
+      @mixin-content;
+    }
+  } @else {
+    @media screen and (min-width: $(breakpoint)px) and (max-width: $(maximum)px) {
+      @mixin-content;
+    }
+  }
 }
 
-@define-mixin vh $percent: 0 {
-  height: $(percent)vh;
+@define-mixin vh $prop: height, $percent: 0 {
+  $(prop): $(percent)vh;
 
   /**
    * Fix for iPad, portrait
    */
   @media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait) {
-    height: calc($percent * 1024px);
+    $(prop): calc($percent * 1024px);
   }
 
   /**
    * Fix for iPad, landscape
    */
   @media all and (device-width: 768px) and (device-height: 1024px) and (orientation:landscape) {
-    height: calc($percent * 768px);
+    $(prop): calc($percent * 768px);
   }
 
   /**
    * Fix for iPhone 5
    */
   @media screen and (device-aspect-ratio: 40/71) and (device-height: 500px) {
-    height: calc($percent * 500px);
+    $(prop): calc($percent * 500px);
   }
 }
 

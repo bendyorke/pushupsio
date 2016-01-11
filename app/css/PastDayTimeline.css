@@ -17,16 +17,65 @@
   padding-left: 24px;
 }
 
-.label {
-  @mixin font Cabin;
+.transition {
   flex: 1;
-  opacity: 0.4;
+  position: relative;
+}
+
+.view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  @mixin flex-block;
 }
 
 .edit {
-  flex: 0 0 12px;
-  padding: 12px 24px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  @mixin flex-block;
+}
+
+.label {
+  @mixin font Cabin;
+  color: #0005;
+  transition: all 0.2s ease;
+  flex: 2;
   opacity: 0.4;
+}
+
+.icon {
+  flex: 1;
+  transition: all 0.2s ease;
+  height: 16px;
+}
+
+.pencil {
+  composes: icon;
+  color: #0005;
+  opacity: 0.4;
+  padding-bottom: 4px;
+}
+
+.minus {
+  composes: icon;
+
+}
+
+.plus {
+  composes: icon;
+}
+
+.check {
+  composes: icon;
+}
+
+.close {
+  composes: icon;
 }
 
 .star {

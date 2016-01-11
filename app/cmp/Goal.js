@@ -22,6 +22,7 @@ class Goal extends Component {
   }
 
   handleChange = event => {
+    this.setState({mode: 'save'})
     this.props.updateUser({goal: parseInt(event.target.value)})
     this.props.calculate()
   }
@@ -57,7 +58,7 @@ class Goal extends Component {
           transitionLeaveTimeout={500}>
           {dirty &&
             <div
-              styleName="button fallinout"
+              styleName="fallinout _card_footer _hoverable"
               onClick={this.handleSubmit}
               key="save">
               {mode === 'save' && 'Save'}

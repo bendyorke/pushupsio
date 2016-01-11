@@ -13,6 +13,7 @@ class TodayTimeline extends Component {
     date: PropTypes.object,
     count: PropTypes.number,
     setCount: PropTypes.func,
+    total: PropTypes.object,
   }
 
   static defaultProps = {
@@ -25,30 +26,45 @@ class TodayTimeline extends Component {
   }
 
   render() {
-    const { date, count } = this.props
+    const { date, count, total } = this.props
     return (
       <div styleName="container">
         <Date date={date} />
 
         <div styleName="card">
-          <div styleName="count">{count}</div>
-          <div styleName="label">pushups today</div>
-          <div styleName="actions">
-            {/* Decrement button */}
-            <div
-              styleName="decrement"
-              onClick={this.handleCount(count - 1)}>
-              –
-            </div>
 
-            <div styleName="action-seperator" />
+          {/* Main Card */}
+          <div styleName="main-card">
+            <div styleName="count">{count}</div>
+            <div styleName="label">pushups today</div>
+            <div styleName="actions">
 
-            {/* Increment button */}
-            <div
-              styleName="increment"
-              onClick={this.handleCount(count + 1)}>
-              +
+              {/* Decrement button */}
+              <div
+                styleName="decrement"
+                onClick={this.handleCount(count - 1)}>
+                –
+              </div>
+
+              <div styleName="action-seperator" />
+
+              {/* Increment button */}
+              <div
+                styleName="increment"
+                onClick={this.handleCount(count + 1)}>
+                +
+              </div>
             </div>
+          </div>
+
+          {/* Drawer */}
+          <div styleName="card-drawer">
+            <div styleName="drawer-value">{total.thisWeek}</div>
+            <div styleName="drawer-label">this week</div>
+            <div styleName="drawer-value">{total.thisMonth}</div>
+            <div styleName="drawer-label">this month</div>
+            <div styleName="drawer-value">{total.thisYear}</div>
+            <div styleName="drawer-label">this year</div>
           </div>
         </div>
       </div>
@@ -57,6 +73,7 @@ class TodayTimeline extends Component {
 }
 
 export default connect(state => ({
+  total: state.analytics.total,
 }), {
   setCount,
 })(CSS(TodayTimeline, styles))

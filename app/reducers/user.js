@@ -27,11 +27,11 @@ const userReducer = (state, action) => ({
   },
 
   SAVE_USER_SUCCESS() {
-    const user = action.payload
+    const user = {...action.payload, ...action.payload.attributes}
     const { sessionToken, ...attributes } = user
     Parse.User.current().set(attributes)
 
-    return userObject(user)
+    return userObject(action.payload)
   },
 
   SIGN_OUT_SUCCESS: 'SIGN_IN_SUCCESS',

@@ -12,6 +12,8 @@ const svgs = {
   Analytics: require('react-icons/lib/go/graph'),
   Profile: require('react-icons/lib/go/jersey'),
   Edit: require('react-icons/lib/go/pencil'),
+  Check: require('react-icons/lib/go/check'),
+  Close: require('react-icons/lib/go/x'),
 }
 
 const Icon = Svg => props => (

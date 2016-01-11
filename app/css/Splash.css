@@ -1,15 +1,12 @@
 @import 'base';
 
-.container {
-}
-
 .fold {
   position: relative;
   text-align: center;
   box-sizing: border-box;
   padding: 24px;
   min-height: 400px;
-  @mixin vh 100;
+  @mixin vh height, 100;
   @mixin flex-block column;
 }
 
@@ -66,7 +63,7 @@
   box-sizing: border-box;
   @mixin colorize;
   min-height: 400px;
-  @mixin vh 110;
+  @mixin vh height, 110;
   @mixin flex-block;
 }
 

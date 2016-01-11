@@ -47,13 +47,33 @@ const throttleMiddleware = store => next => {
     const duration = action.throttle
     const throttle = activeThrottles[action.type] || {}
 
+    /**
+     * If there already is a throttle action for this action,
+     * remove it and create a new one.
+     */
     if (throttle.timeout) clearTimeout(throttle.timeout)
+
+    /**
+     * Create a delayed action for the current action, set
+     * to propogate after the throttle time.  If another action
+     * comes in in the meantime, it will clear it.
+     */
     throttle.timeout = setTimeout(() => {
       next({...action, payload: action.payload()})
     }, duration)
-
     activeThrottles[action.type] = throttle
-    return next(action)
+
+    /**
+     * Release whatever pseudo action is passed in in the meantime.
+     * Pseudo action in this case means:
+     * - Type is prefixed with an underscore (splat (_))
+     * - Payload released is the pseudo payload: _payload
+     */
+    return next({
+      ...action,
+      type: `_${action.type}`,
+      payload: action._payload || {},
+    })
   }
 }
 

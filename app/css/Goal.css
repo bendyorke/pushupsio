@@ -8,7 +8,7 @@
 
 .button-container {
   display: block;
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -49,4 +49,6 @@
 
 .target {
   padding-top: 12px;
+  text-align: center;
+  color: color(var(--text) l(- 20%));
 }

@@ -1,13 +1,13 @@
 @import 'base';
 
 .content {
-  padding-top: 126px;
+  padding-top: 140px;
   background: var(--grey);
+  @mixin vh min-height, 100;
 
   transition: all 0.3s ease;
-  @mixin break 600 {
-    padding-top: 24px;
-    padding-left: 300px;
+  @mixin break 675 {
+    padding: 24px 48px 0 300px;
     background: var(--white);
   }
 }

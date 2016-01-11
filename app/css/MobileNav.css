@@ -5,13 +5,14 @@
   background: var(--white);
   position: fixed;
   width: 100%;
-  height: 114px;
+  height: 116px;
   top: 0;
   left: 0;
   z-index: 900;
+  @mixin flex-block column, space-between, stretch;
 
   transition: all 0.3s ease 0.3s;
-  @mixin break 600 {
+  @mixin break 675 {
     visibility: hidden;
     top: -114px;
     opacity: 0;
@@ -20,7 +21,7 @@
 }
 
 .top-bar {
-  padding: 16px;
+  flex: 3;
   @mixin flex-block;
 }
 
@@ -29,14 +30,13 @@
   color: #34495e;
   letter-spacing: 1px;
   flex: 1;
-  box-sizing: border-box;
-  padding-bottom: 4px;
   text-align: center;
   font-size: 28px;
 }
 
 .bottom-bar {
-  @mixin flex-block;
+  flex: 2;
+  @mixin flex-block row, stretch, stretch;
 }
 
 .link {

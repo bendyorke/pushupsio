@@ -1,7 +1,7 @@
 @import 'base';
 
 .container {
-  @mixin flex-block row, center, flex-start;
+  @mixin flex-block row, flex-start, flex-start;
   margin-right: 12px;
   margin-bottom: 24px;
 }
@@ -10,10 +10,17 @@
   flex: 1;
   background: var(--white);
   box-shadow: 0px 1px 4px color(#33495e a(20%));
+  @mixin flex-block row, center, stretch;
+  max-width: 650px;
+  overflow: hidden;
+}
+
+.main-card {
+  flex: 2;
 }
 
 .count {
-  font-size: 60px;
+  font-size: 64px;
   text-align: center;
   padding-top: 12px;
 }
@@ -32,6 +39,7 @@
 }
 
 .action {
+  composes: _hoverable;
   flex: 1;
   text-align: center;
   font-size: 36px;
@@ -54,6 +62,48 @@
   align-self: center;
 }
 
-.star {
-  width: 36px;
+@define-mixin drawer-open {
+  @mixin break 475, 675 { @mixin-content; }
+  @mixin break 850 { @mixin-content; }
+}
+
+@define-mixin drawer-closed {
+  @mixin-content;
+  @mixin break 675, 850 { @mixin-content; }
+}
+
+.card-drawer {
+  flex: 1;
+  box-shadow: -21px 0 0 -20px #D6D9EA;
+  align-self: stretch;
+  box-sizing: border-box;
+  @mixin flex-block column, stretch;
+
+  @mixin drawer-open {
+    visibility: visible;
+    max-width: 250px;
+    opacity: 1;
+    padding: 12px;
+    transition: all 0.6s ease;
+  }
+
+  @mixin drawer-closed {
+    visibility: hidden;
+    max-width: 0;
+    opacity: 0;
+    padding: 12px 0;
+    transition: all 0.3s ease;
+  }
+}
+
+.drawer-value {
+  font-size: 24px;
+  white-space: nowrap;
+}
+
+.drawer-label {
+  composes: label;
+  padding-bottom: 0;
+  font-size: 14px;
+  white-space: nowrap;
 }

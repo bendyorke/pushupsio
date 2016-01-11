@@ -12,15 +12,15 @@
   box-sizing: border-box;
   border-style: solid;
   border-radius: 2px;
-  border-width: 3px;
-  box-shadow: inset 0 0 0 4px white;
+  border-width: 1px;
+  box-shadow: inset 0 0 0 2px white;
 
   width: 12%;
-  padding-bottom: 10%;
+  padding-bottom: 11%;
   margin: 4%;
   @mixin break 480 {
     width: 10%;
-    padding-bottom: 8.5%;
+    padding-bottom: 9%;
     margin: 5%;
   }
 }

@@ -24,16 +24,15 @@ class Color extends Component {
   static colors = Object.keys(colors)
 
   handleSelect = color => event => {
+    this.setState({mode: 'save'})
     this.props.updateUser({color})
   }
 
   handleSubmit = event => {
-    const { saveUser } = this.props
+    const { current: color, saveUser } = this.props
     this.setState({mode: 'saving'})
 
-    saveUser({
-      color: this.state.color,
-    }).then(() => {
+    saveUser({color}).then(() => {
       this.setState({mode: 'saved'})
     })
   }
@@ -59,12 +58,13 @@ class Color extends Component {
         </div>
         <Transition
           styleName="button-container"
-          transitionName={styles.fallinout}
+          transitionName="fallinout"
           transitionEnterTimeout={500}
           transitionLeaveTimeout={500}>
           {dirty &&
             <div
-              styleName="button fallinout"
+              className="fallinout"
+              styleName="_card_footer _hoverable"
               onClick={this.handleSubmit}
               key="save">
               {(mode === 'save' || mode === 'samesame') && 'Save'}

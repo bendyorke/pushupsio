@@ -20,6 +20,7 @@ class Account extends Component {
   }
 
   handleChange = event => {
+    this.setState({mode: 'save'})
     this.props.updateUser({email: event.target.value})
   }
 
@@ -53,7 +54,7 @@ class Account extends Component {
           transitionLeaveTimeout={500}>
           {dirty &&
             <div
-              styleName="button fallinout"
+              styleName="fallinout _card_footer _hoverable"
               onClick={this.handleSubmit}
               key="save">
               {mode === 'save' && 'Save'}

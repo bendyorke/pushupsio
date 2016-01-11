@@ -21,12 +21,13 @@ const historyReducer = (state, action) => ({
     return history
   },
 
-  SET_COUNT() {
-    const key = createKey(action.data.date)
+  UPDATE_COUNT() {
+    const { date, count } = action.payload
+    const key = createKey(date)
     const item = createHistoryItem({
       ...state[key],
-      date: action.data.date,
-      count: action.data.count
+      date: date,
+      count: count
     })
 
     return {
@@ -35,7 +36,9 @@ const historyReducer = (state, action) => ({
     }
   },
 
-  SET_COUNT_SUCCESS() {
+  _SET_COUNT: 'UPDATE_COUNT',
+
+  SAVE_COUNT_SUCCESS() {
     const record = {...action.payload, ...action.payload.attributes}
     const item = createHistoryItem({
       ...record,
@@ -47,6 +50,8 @@ const historyReducer = (state, action) => ({
       [item.key]: item,
     }
   },
+
+  SET_COUNT_SUCCESS: 'SAVE_COUNT_SUCCESS',
 })
 
 export default createReducer(historyReducer, initial)

@@ -27,7 +27,7 @@ class Register extends Component {
   success() {
     const { pushPath, initialize } = this.props
     initialize()
-    pushPath('/dashboard')
+    pushPath('/timeline')
   }
 
   err(error) {

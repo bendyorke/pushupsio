@@ -15,7 +15,7 @@
   box-sizing: border-box;
 
   transition: all 0.3s ease 0s;
-  @mixin break 600 {
+  @mixin break 675 {
     visibility: visible;
     left: 0;
     opacity: 1;
